@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hmbg/Login_Page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -172,10 +173,10 @@ class SplashPageState extends State<SplashPage> with SingleTickerProviderStateMi
         if(isLoggedIn){
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(),));
         }else{
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage(),));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login_Page(),));
         }
       }else {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage(),));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login_Page(),));
       }
 
     },);
@@ -190,12 +191,7 @@ class HomePage extends StatelessWidget{
   }
 
 }
-class LoginPage extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text('Login',style: TextStyle(fontSize: 100),),
-    );
-  }
 
-}
+
+
+
