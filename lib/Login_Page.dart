@@ -80,7 +80,7 @@ class Login_Page extends StatelessWidget{
                   Text('Forget Password ?',style: TextStyle(color: Colors.blueAccent),),
                   ElevatedButton(onPressed: (){
 
-                  }, child: Text('Login'))
+                  }, child: Text('pull'))
                 ],
 
               ),
