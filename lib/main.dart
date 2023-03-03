@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: SplashPage(),
     );
   }
 }
@@ -75,8 +79,123 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Text('HMBG.01'),
-      // This trailing comma makes auto-formatting nicer for build methods.
+      body: Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: Column(
+          // Column is also a layout widget. It takes a list of children and
+          // arranges them vertically. By default, it sizes itself to fit its
+          // children horizontally, and tries to be as tall as its parent.
+          //
+          // Invoke "debug painting" (press "p" in the console, choose the
+          // "Toggle Debug Paint" action from the Flutter Inspector in Android
+          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+          // to see the wireframe for each widget.
+          //
+          // Column has various properties to control how it sizes itself and
+          // how it positions its children. Here we use mainAxisAlignment to
+          // center the children vertically; the main axis here is the vertical
+          // axis because Columns are vertical (the cross axis would be
+          // horizontal).
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+class SplashPage extends StatefulWidget{
+  @override
+  State<SplashPage> createState() => SplashPageState();
+
+
+}
+class SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin{
+
+  static const String KEYLOGIN = "Login";
+
+  late Animation animation;
+  late AnimationController animationController;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    animationController = AnimationController(vsync: this,duration: Duration(seconds: 4));
+    animation = Tween(begin: 0.0,end: 200.0).animate(animationController);
+
+    animationController.addListener(() {
+      setState(() {
+
+      });
+    });
+    animationController.forward();
+
+    whereToGo();
+    // ignore: use_function_type_syntax_for_parameters
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Stack(children: [
+          Center(
+            child:
+            Container(
+              width: double.infinity,
+                height: double.infinity,
+                child: Image.asset('asset/images/p1.1.3.png',fit: BoxFit.fill,))),
+          Center(child: Image.asset('asset/images/inspire_logo.png',width: animation.value,height: animation.value,fit: BoxFit.fill,))
+        ]
+    )
+    );
+  }
+  void whereToGo() async {
+
+    var sharedpref = await SharedPreferences.getInstance();
+    var isLoggedIn = sharedpref.getBool(KEYLOGIN);
+    Timer(Duration(seconds: 6), (){
+      if(isLoggedIn!=null){
+        if(isLoggedIn){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(),));
+        }else{
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage(),));
+        }
+      }else {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage(),));
+      }
+
+    },);
+  }
+}
+class HomePage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Text('Home'),
+    );
+  }
+
+}
+class LoginPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Text('Login',style: TextStyle(fontSize: 100),),
+    );
+  }
+
 }
