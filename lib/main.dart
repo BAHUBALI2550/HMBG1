@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +12,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -28,7 +24,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: SplashPageScreen(),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -77,13 +73,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text("HMBG"),
+        title: Text(widget.title),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
-
           // Column is also a layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
           // children horizontally, and tries to be as tall as its parent.
@@ -117,81 +112,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-}
-class SplashPageScreen extends  StatefulWidget{
-  @override
-  State<SplashPageScreen> createState() => SplashPageState();
-
-}
-
-class SplashPageState extends State<SplashPageScreen> with SingleTickerProviderStateMixin {
-
-  static const String KEYLOGIN = "Login";
-
-  late Animation animation;
-  late AnimationController animationController;
-@override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    animationController = AnimationController(vsync: this,duration: Duration(seconds: 4));
-    animation = Tween(begin: 0.0,end: 200.0).animate(animationController);
-    animationController.addListener(() {
-      setState(() {
-
-      });
-    });
-    animationController.forward();
-    whereToGo();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(children: [
-      Center(child: Container(
-        width: double.infinity,
-          height: double.infinity,
-          child: Image.asset('asset/images/p1.1.3.png',fit: BoxFit.fill,))),
-        Center(child: Container(
-
-            child: Image.asset('asset/images/inspire_logo.png',width: animation.value,height: animation.value,fit: BoxFit.fill,)))
-    ]
-    )
-    );
-  }
-  void whereToGo() async{
-    var sharedpref = await SharedPreferences.getInstance();
-    var isLoggedIn = sharedpref.getBool(KEYLOGIN);
-    Timer(Duration(seconds: 6), (){
-      if(isLoggedIn!=null){
-        if(isLoggedIn){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(),));
-        }else{
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage(),));
-        }
-      }else {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage(),));
-      }
-
-    },);
-  }
-}
-class HomePage extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text('HomePage',style: TextStyle(fontSize: 50),),
-    );
-  }
-
-}
-class LoginPage extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text('LoginPage',style: TextStyle(fontSize: 50),),
-    );
-  }
-
 }
