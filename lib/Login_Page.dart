@@ -11,10 +11,10 @@ class Login_Page extends StatefulWidget{
   // var Passw;
   // Login_Page(this.Userid,this.Passw);
   @override
-  State<Login_Page> createState() => _Login_PageState();
+  State<Login_Page> createState() => Login_PageState();
 }
 
-class _Login_PageState extends State<Login_Page> {
+class Login_PageState extends State<Login_Page> {
   // var Userid1;
   // var Passw2;
   // var error;
@@ -28,6 +28,7 @@ class _Login_PageState extends State<Login_Page> {
   var controller2=TextEditingController();
   var user;
   var passw;
+  static const String USER='user';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,7 +118,7 @@ class _Login_PageState extends State<Login_Page> {
                     ),
                     ElevatedButton(onPressed: ()   async {
                       var pref=await SharedPreferences.getInstance();
-                       user=pref.getString('user');
+                       user=pref.getString(USER);
                        passw=pref.getString('pass');
                       // print('$user -- $passw');
                       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>DashBoard()));

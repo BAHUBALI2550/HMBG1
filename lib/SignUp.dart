@@ -119,10 +119,10 @@ return Scaffold(
               ),
               ElevatedButton(onPressed: () async {
                 var pref=await SharedPreferences.getInstance();
-                pref.setString('user',con1.toString() );
-                pref.setString('pass', con2.toString());
-
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login_Page(),));
+                var User=pref.setString(Login_PageState.USER,con1.text.toString() ).toString();
+                var pass=pref.setString('pass', con2.text.toString()).toString();
+                print('$User -- $pass');
+                // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login_Page(),));
               }, child: Text('Sign Up',style: TextStyle(color: Colors.black,fontSize: 29,fontWeight: FontWeight.bold),)),
               SizedBox(
                 height: 15,
