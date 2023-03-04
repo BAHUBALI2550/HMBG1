@@ -78,7 +78,10 @@ return Scaffold(
                   controller: con1,
                   decoration: InputDecoration(
                     suffixIcon: Icon(Icons.verified_user,color: Colors.black,),
-                    label: Text('UserName',textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.w500),),
+                    label: Text('UserName',textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.black,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500),),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:BorderSide(color: Colors.white,width: 2),
@@ -117,12 +120,12 @@ return Scaffold(
               SizedBox(
                 height: 15,
               ),
-              ElevatedButton(onPressed: () async {
+              ElevatedButton(onPressed: ()  async {
                 var pref=await SharedPreferences.getInstance();
-                var User=pref.setString(Login_PageState.USER,con1.text.toString() ).toString();
-                var pass=pref.setString('pass', con2.text.toString()).toString();
-                print('$User -- $pass');
-                // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login_Page(),));
+                // var User=pref.setString(Login_PageState.USER,con1.text.toString() );
+                // var pass=pref.setString('pass', con2.text.toString());
+                // print('$User -- $pass');
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login_Page(),));
               }, child: Text('Sign Up',style: TextStyle(color: Colors.black,fontSize: 29,fontWeight: FontWeight.bold),)),
               SizedBox(
                 height: 15,
