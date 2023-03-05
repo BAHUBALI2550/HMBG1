@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hmbg/Login_Page.dart';
+import 'package:hmbg/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -27,14 +28,18 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
+
+        primarySwatch: Colors.orange,
+
         primarySwatch: Colors.grey,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton. styleFrom(
             primary:Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           )
         ),
+
       ),
-      home: SplashPage(),
+      home: DashBoard(),
     );
   }
 }
