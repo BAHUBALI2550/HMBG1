@@ -28,7 +28,16 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
+
         primarySwatch: Colors.orange,
+
+        primarySwatch: Colors.grey,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton. styleFrom(
+            primary:Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          )
+        ),
+
       ),
       home: DashBoard(),
     );
@@ -136,7 +145,7 @@ class SplashPageState extends State<SplashPage> with SingleTickerProviderStateMi
     // TODO: implement initState
     super.initState();
     animationController = AnimationController(vsync: this,duration: Duration(seconds: 4));
-    animation = Tween(begin: 0.0,end: 200.0).animate(animationController);
+    animation = Tween(begin: 0.0,end: 250.0).animate(animationController);
 
     animationController.addListener(() {
       setState(() {
@@ -160,7 +169,7 @@ class SplashPageState extends State<SplashPage> with SingleTickerProviderStateMi
               width: double.infinity,
                 height: double.infinity,
                 child: Image.asset('asset/images/p1.1.3.png',fit: BoxFit.fill,))),
-          Center(child: Image.asset('asset/images/inspire_logo.png',width: animation.value,height: animation.value,fit: BoxFit.fill,))
+          Center(child: Image.asset('asset/images/inspire_logo.png',color: Colors.black,width: animation.value,height: animation.value,fit: BoxFit.fill,))
         ]
     )
     );
@@ -169,7 +178,7 @@ class SplashPageState extends State<SplashPage> with SingleTickerProviderStateMi
 
     var sharedpref = await SharedPreferences.getInstance();
     var isLoggedIn = sharedpref.getBool(KEYLOGIN);
-    Timer(Duration(seconds: 6), (){
+    Timer(Duration(seconds: 4), (){
       if(isLoggedIn!=null){
         if(isLoggedIn){
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(),));
