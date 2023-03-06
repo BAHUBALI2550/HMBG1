@@ -50,7 +50,7 @@ class ReadContinueState extends State<ReadContinue>{
       body: Stack(
 
           children: [
-            dashboardContainer(),
+            dashboardContainer('asset/images/dashboard.jpg'),
             SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.only(top: 290),
@@ -99,7 +99,8 @@ class ReadContinueState extends State<ReadContinue>{
                     SizedBox(
                       height: 11,
                     ),
-                    ChapterContainer(11),SizedBox(
+                    ChapterContainer(11),
+                    SizedBox(
                       height: 11,
                     ),
                     ChapterContainer(12),
@@ -146,18 +147,6 @@ class ReadContinueState extends State<ReadContinue>{
               ),
             )
       ]),
-    );
-  }
-
-}
-class dashboardContainer extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          child: Image.asset('asset/images/dashboard.jpg',fit: BoxFit.fill,)),
     );
   }
 

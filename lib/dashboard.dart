@@ -52,7 +52,7 @@ class DashBoardPage extends State<DashBoard>{
       ),
       body: Stack(
         children: [
-          dashboardContainer(),
+          dashboardContainer('asset/images/dashboard.jpg'),
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,13 +97,15 @@ class DashBoardPage extends State<DashBoard>{
 
 }
 class dashboardContainer extends StatelessWidget{
+  String image="";
+  dashboardContainer(this.image);
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
           width: double.infinity,
           height: double.infinity,
-          child: Image.asset('asset/images/dashboard.jpg',fit: BoxFit.fill,)),
+          child: Image.asset(image,fit: BoxFit.fill,)),
     );
   }
 

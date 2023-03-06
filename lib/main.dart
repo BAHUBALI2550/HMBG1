@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hmbg/Login_Page.dart';
+import 'package:hmbg/QuizBeginPage.dart';
 import 'package:hmbg/dashboard.dart';
 import 'package:hmbg/readContinuation.dart';
+import 'package:hmbg/shlokPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
         ),
 
       ),
-      home: ReadContinue(),
+      home: ShlokPage1_1(),
     );
   }
 }
