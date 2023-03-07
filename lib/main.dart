@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
       ),
 
 
-      home: SplashPage(),
+      home: ShlokPage1_1(),
 
     );
   }
