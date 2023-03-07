@@ -27,7 +27,7 @@ class _QuizBeginState extends State<QuizBegin> {
             child: ElevatedButton(
                 onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Question_01()));
-                }, child: Text('Begin Quiz',style: TextStyle(fontSize: 22),)),
+                }, child: Text('Begin Quiz',style: TextStyle(fontSize: 40),)),
           ),
         ],
       ),

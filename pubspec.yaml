@@ -40,7 +40,7 @@ dependencies:
 
   #flutter_zoom_drawer:
   flutter_zoom_drawer: ^2.1.1
-  audioplayers: ^3.0.1
+  audioplayers: ^0.20.1
   font_awesome_flutter: ^10.4.0
 
 
@@ -70,7 +70,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - asset/images/
-   - asset/audio/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

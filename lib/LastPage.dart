@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hmbg/Question_01.dart';
 import 'package:hmbg/dashboard.dart';
+import 'package:hmbg/quizResult.dart';
 
 class Last_Page extends StatelessWidget{
   @override
@@ -27,7 +28,7 @@ class Last_Page extends StatelessWidget{
                     child: Container(
                       alignment: Alignment.centerRight,
                       child: ElevatedButton(onPressed: (){
-
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => QuizResultPage()));
                       }, child: Text('End Quiz',style: TextStyle(fontSize: 25),)),
                     ),
                   )

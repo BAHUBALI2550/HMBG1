@@ -28,6 +28,14 @@ class DashBoardPage extends State<DashBoard>{
                       TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
                   )
               ),
+              child:const NavigationDestination(icon: Icon(Icons.home_outlined,size: 40,), label: 'Favourite',selectedIcon: Icon(Icons.home),)),
+          NavigationBarTheme(
+              data: NavigationBarThemeData(
+                  indicatorColor: Colors.red.shade100,
+                  labelTextStyle: MaterialStateProperty.all(
+                      TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
+                  )
+              ),
               child:const NavigationDestination(icon: Icon(Icons.account_circle_outlined,size: 40,), label: 'Profile',selectedIcon: Icon(Icons.account_circle),)),
           NavigationBarTheme(
               data: NavigationBarThemeData(
