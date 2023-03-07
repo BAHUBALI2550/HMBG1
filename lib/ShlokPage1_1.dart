@@ -12,6 +12,26 @@ class ShlokPage1_1 extends StatefulWidget{
 
 }
 class ShlokPage1_1State extends State<ShlokPage1_1>{
+  final audioPlayer = AudioPlayer();
+  bool isPlaying = false;
+  Duration duration = Duration.zero;
+  Duration position = Duration.zero;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    audioPlayer.onPlayerStateChanged.listen((state) {
+      setState(() {
+        isPlaying = state ==PlayerState.PLAYING;
+      });
+    });
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    audioPlayer.dispose();
+    super.dispose();
+  }
   @override
   int index = 0;
   Widget build(BuildContext context) {
@@ -82,13 +102,21 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
                     alignment: Alignment.center,
 
                     child:
-                    InkWell(
-                      onTap: () {
-                      },
-                      child: CircleAvatar(
-                        radius: 30,
-                        backgroundImage: AssetImage('asset/images/playbutton1.jpg'),
-
+                    CircleAvatar(
+                      radius: 35,
+                      child: IconButton(
+                        icon: Icon(
+                          isPlaying ? Icons.pause : Icons.play_arrow,
+                        ),
+                        iconSize: 50,
+                        onPressed: () async {
+                          if(isPlaying){
+                            await audioPlayer.pause();
+                          }else{
+                            String url = 'https://www.holy-bhagavad-gita.org/public/audio/001_001.mp3';
+                            await audioPlayer.play(url);
+                          }
+                        },
                       ),
                     ),
                   ),

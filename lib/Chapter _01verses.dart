@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hmbg/dashboard.dart';
-import 'package:hmbg/shlokPage.dart';
+
+import 'ShlokPage1_1.dart';
+
 
 class Chapter_01 extends StatefulWidget{
   @override
