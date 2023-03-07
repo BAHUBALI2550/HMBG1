@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hmbg/BGMain_Page.dart';
 
 class DashBoard extends StatefulWidget{
   @override
@@ -80,7 +81,11 @@ class DashBoardPage extends State<DashBoard>{
                 SizedBox(
                   height: 9,
                 ),
-                dashBoardImage("asset/images/bhagavadgita-6.jpg", "BHAGAVAD GITA",500.0,97.0),
+                InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>BGMain_Page()));
+                    },
+                    child: dashBoardImage("asset/images/bhagavadgita-6.jpg", "BHAGAVAD GITA",500.0,97.0)),
                 SizedBox(
                   height: 11,
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hmbg/QuizBeginPage.dart';
 
 import 'dashboard.dart';
 
@@ -51,7 +52,9 @@ class _QuizResultPageState extends State<QuizResultPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
 
-                      ElevatedButton(onPressed: () {},
+                      ElevatedButton(onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => QuizBegin()));
+                      },
 
                             child: Padding(
                               padding: const EdgeInsets.all(9.0),
@@ -60,7 +63,9 @@ class _QuizResultPageState extends State<QuizResultPage> {
                         ),
 
 
-                      ElevatedButton(onPressed: () {},
+                      ElevatedButton(onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => DashBoard()));
+                      },
                           child: Padding(
                             padding: const EdgeInsets.all(9.0),
                             child: Text('Home',style: TextStyle(fontSize: 25),),
