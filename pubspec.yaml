@@ -40,10 +40,8 @@ dependencies:
 
   #flutter_zoom_drawer:
   flutter_zoom_drawer: ^2.1.1
-
-  font_awesome_flutter: ^10.4.0
-  #audioplayers:
   audioplayers: ^3.0.1
+  font_awesome_flutter: ^10.4.0
 
 
 dev_dependencies:

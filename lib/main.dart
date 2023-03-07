@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hmbg/Login_Page.dart';
+import 'package:hmbg/Question_01.dart';
 import 'package:hmbg/QuizBeginPage.dart';
 import 'package:hmbg/dashboard.dart';
 import 'package:hmbg/readContinuation.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
         ),
 
       ),
-      home: ShlokPage1_1(),
+      home: SplashPage(),
     );
   }
 }
