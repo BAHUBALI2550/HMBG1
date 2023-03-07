@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hmbg/Login_Page.dart';
 import 'package:hmbg/QuizBeginPage.dart';
 import 'package:hmbg/dashboard.dart';
+import 'package:hmbg/quizResult.dart';
 import 'package:hmbg/readContinuation.dart';
 import 'package:hmbg/shlokPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,12 +37,17 @@ class MyApp extends StatelessWidget {
 
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton. styleFrom(
-            primary:Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            primary:Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),
+          side: BorderSide(
+            color: Colors.indigo,
+            width: 2,
+          ),
+          ),
           )
         ),
 
       ),
-      home: ShlokPage1_1(),
+      home: QuizResultPage(),
     );
   }
 }
