@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hmbg/Chapter%20_01verses.dart';
 import 'package:hmbg/dashboard.dart';
 
 class ReadContinue extends StatefulWidget{
@@ -59,7 +60,11 @@ class ReadContinueState extends State<ReadContinue>{
                     SizedBox(
                       height: 11,
                     ),
-                    ChapterContainer(1),
+                    InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Chapter_01()));
+                        },
+                        child: ChapterContainer(1)),
                     SizedBox(
                       height: 11,
                     ),
@@ -137,7 +142,7 @@ class ReadContinueState extends State<ReadContinue>{
               margin: EdgeInsets.only(top: 255,left: 300),
               child: InkWell(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PromoPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Chapter_01()));
                 },
                 child: CircleAvatar(
                   backgroundImage: AssetImage('asset/images/playbutton1.jpg'),
