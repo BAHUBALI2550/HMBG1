@@ -54,7 +54,7 @@ class _QuizResultPageState extends State<QuizResultPage> {
                       ElevatedButton(onPressed: () {},
 
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(9.0),
                               child: Text('Play Again',style: TextStyle(fontSize: 25),),
                             )
                         ),
@@ -62,7 +62,7 @@ class _QuizResultPageState extends State<QuizResultPage> {
 
                       ElevatedButton(onPressed: () {},
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(9.0),
                             child: Text('Home',style: TextStyle(fontSize: 25),),
                           )
                       ),
