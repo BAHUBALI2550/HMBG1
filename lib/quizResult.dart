@@ -64,7 +64,7 @@ class _QuizResultPageState extends State<QuizResultPage> {
 
 
                       ElevatedButton(onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => DashBoard()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => DashBoard("")));
                       },
                           child: Padding(
                             padding: const EdgeInsets.all(9.0),
