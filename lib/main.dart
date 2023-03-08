@@ -7,8 +7,9 @@ import 'package:hmbg/QuizBeginPage.dart';
 import 'package:hmbg/dashboard.dart';
 import 'package:hmbg/quizResult.dart';
 import 'package:hmbg/readContinuation.dart';
-import 'package:hmbg/shlokPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'ShlokPage1_1.dart';
 
 void main() {
   runApp(const MyApp());
