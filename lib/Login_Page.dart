@@ -30,6 +30,7 @@ class Login_PageState extends State<Login_Page> {
   var controller1 = TextEditingController();
   var controller2 = TextEditingController();
   var user ="";
+  var namee="";
   var passw;
   static const String USER = 'user';
 
@@ -203,10 +204,11 @@ class Login_PageState extends State<Login_Page> {
   void whereToGo1() async {
     var sharedpref = await SharedPreferences.getInstance();
     var isLoggedIn = sharedpref.getBool(USER);
+    namee=controller1.text.toString();
     if (isLoggedIn != null) {
       if (isLoggedIn) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => DashBoard(),));
+            context, MaterialPageRoute(builder: (context) => DashBoard(namee),));
       } else {
         user = 'Wrong UserName/Password';
       }

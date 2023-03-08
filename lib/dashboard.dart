@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:hmbg/BGMain_Page.dart';
 
 class DashBoard extends StatefulWidget{
+  var nam="";
+  DashBoard(this.nam);
   @override
-  State<DashBoard> createState() => DashBoardPage();
+  State<DashBoard> createState() => DashBoardPage(nam);
 
 }
 class DashBoardPage extends State<DashBoard>{
+  var name="";
+  DashBoardPage(this.name);
   int index = 0;
   @override
   Widget build(BuildContext context) {
@@ -76,7 +80,7 @@ class DashBoardPage extends State<DashBoard>{
                         color: Colors.white.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(11),
                       ),
-                      child: Center(child: Text('!! WELCOME USERNAME !!',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),))),
+                      child: Center(child: Text('!! WELCOME $name !!',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),))),
                 ),
                 SizedBox(
                   height: 9,
