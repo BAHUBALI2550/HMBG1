@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:hmbg/BGMain_Page.dart';
+import 'package:hmbg/DashBoarddrawer.dart';
 
 class DashBoard extends StatefulWidget{
   var nam="";
@@ -62,6 +64,7 @@ class DashBoardPage extends State<DashBoard>{
       appBar: AppBar(
 
         title: Text('HMBG'),
+        leading: MenuWidget(),
       ),
       body: Stack(
         children: [
@@ -184,10 +187,7 @@ class dashBoardImage extends StatelessWidget{
   }
 
 }
-class PromoPage extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Text('Promo',style: TextStyle(fontSize: 60),);
-  }
 
-}
+
+
+

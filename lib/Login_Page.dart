@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hmbg/DashBoarddrawer.dart';
 import 'package:hmbg/SignUp.dart';
 import 'package:hmbg/dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,6 +22,7 @@ class Login_PageState extends State<Login_Page> {
   // var Passw2;
   // var error;
   // _Login_PageState(this.Userid1,this.Passw2);
+
   @override
   void initState() {
     super.initState();
@@ -30,9 +32,9 @@ class Login_PageState extends State<Login_Page> {
   var controller1 = TextEditingController();
   var controller2 = TextEditingController();
   var user ="";
-  var namee="";
   var passw;
   static const String USER = 'user';
+
 
   @override
   Widget build(BuildContext context) {
@@ -202,13 +204,13 @@ class Login_PageState extends State<Login_Page> {
   }
 
   void whereToGo1() async {
+    var usernam = controller1.text.toString();
     var sharedpref = await SharedPreferences.getInstance();
     var isLoggedIn = sharedpref.getBool(USER);
-    namee=controller1.text.toString();
     if (isLoggedIn != null) {
       if (isLoggedIn) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => DashBoard(namee),));
+            context, MaterialPageRoute(builder: (context) => DashBoardDrawer(usernam),));
       } else {
         user = 'Wrong UserName/Password';
       }

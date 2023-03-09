@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hmbg/QuizBeginPage.dart';
 
+import 'DashBoarddrawer.dart';
 import 'dashboard.dart';
 
 
@@ -64,7 +65,7 @@ class _QuizResultPageState extends State<QuizResultPage> {
 
 
                       ElevatedButton(onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => DashBoard("")));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => DashBoardDrawer('')));
                       },
                           child: Padding(
                             padding: const EdgeInsets.all(9.0),

@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:hmbg/Synonym.dart';
-
-import 'Synonyms.dart';
 import 'dashboard.dart';
 
 class ShlokPage1_1 extends StatefulWidget{
@@ -22,7 +20,7 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
     super.initState();
     audioPlayer.onPlayerStateChanged.listen((state) {
       setState(() {
-        isPlaying = state ==PlayerState.PLAYING;
+        isPlaying = state == PlayerState.PLAYING;
       });
     });
   }
@@ -119,6 +117,9 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
                         },
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 11,
                   ),
                   Container(
                       alignment: Alignment.center,
