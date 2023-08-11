@@ -210,7 +210,7 @@ class Login_PageState extends State<Login_Page> {
     if (isLoggedIn != null) {
       if (isLoggedIn) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => DashBoardDrawer(usernam),));
+            context, MaterialPageRoute(builder: (context) => DashBoardDrawer(),));
       } else {
         user = 'Wrong UserName/Password';
       }
