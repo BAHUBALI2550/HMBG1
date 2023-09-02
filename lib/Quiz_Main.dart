@@ -22,75 +22,75 @@ class Quiz_Main extends StatelessWidget{
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>QuizBegin()));
                       },
-                      child: ChapterContainer(1)),
+                      child: ChapterContainer(1,46)),
                   SizedBox(
                     height: 11,
                   ),
-                  ChapterContainer(2),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(3),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(4),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(5),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(6),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(7),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(8),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(9),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(10),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(11),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(12),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(13),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(14),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(15),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(16),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(17),
-                  SizedBox(
-                    height: 11,
-                  ),
-                  ChapterContainer(18),
+                  // ChapterContainer(2),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(3),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(4),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(5),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(6),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(7),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(8),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(9),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(10),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(11),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(12),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(13),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(14),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(15),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(16),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(17),
+                  // SizedBox(
+                  //   height: 11,
+                  // ),
+                  // ChapterContainer(18),
                 ],
               ),
             ),

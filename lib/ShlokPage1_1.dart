@@ -1,26 +1,392 @@
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:hmbg/Synonym.dart';
+import 'package:hmbg/boxes/boxes.dart';
+import 'package:hmbg/models/favourite_model.dart';
+
 import 'dashboard.dart';
+import 'package:http/http.dart' as http;
+import 'package:html/dom.dart' as dom;
+
+
 
 class ShlokPage1_1 extends StatefulWidget{
-  @override
-  State<ShlokPage1_1> createState() => ShlokPage1_1State();
+  final int cnum;
+  final int verse_num;
+  ShlokPage1_1(this.cnum,this.verse_num);
+  State<ShlokPage1_1> createState() => ShlokPage1_1State(cnum,verse_num);
 
 }
 class ShlokPage1_1State extends State<ShlokPage1_1>{
+
+
+
+  final int cnum;
+  final int verse_num;
+  ShlokPage1_1State(this.cnum,this.verse_num);
   final audioPlayer = AudioPlayer();
   bool isPlaying = false;
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
-  @override
+
+  List<Article> articles=[];
+  String? extractData(String input, String startWord, String endWord) {
+    final startIndex = input.indexOf(startWord);
+    final endIndex = input.indexOf(endWord, startIndex + startWord.length);
+
+    if (startIndex != -1 && endIndex != -1) {
+      final extractedData = input.substring(startIndex + startWord.length, endIndex);
+      return extractedData;
+    } else {
+      return null; // Start or end word not found
+    }
+  }
+  String? getUrlString(int a,int b){
+    String Uurl='';
+    if(a == 1 && b >= 16 && b <= 18){
+      Uurl='https://vedabase.io/en/library/bg/1/16-18/';
+    }
+    else if(a == 1 && b >= 21 && b <= 22){
+      Uurl='https://vedabase.io/en/library/bg/1/21-22/';
+    }
+    else if(a == 1 && b >= 32 && b <= 35){
+      Uurl='https://vedabase.io/en/library/bg/1/32-35/';
+    }
+    else if(a == 1 && b >= 37 && b <= 38){
+      Uurl='https://vedabase.io/en/library/bg/1/37-38/';
+    }
+    else if(a == 2 && b >= 42 && b <= 43){
+      Uurl='https://vedabase.io/en/library/bg/2/42-43/';
+    }
+    else if(a == 5 && b >= 8 && b <= 9){
+      Uurl='https://vedabase.io/en/library/bg/5/8-9/';
+    }
+    else if(a == 5 && b >= 27 && b <= 28){
+      Uurl='https://vedabase.io/en/library/bg/5/27-28/';
+    }
+    else if(a == 6 && b >= 11 && b <= 12){
+      Uurl='https://vedabase.io/en/library/bg/6/11-12/';
+    }
+    else if(a == 6 && b >= 13 && b <= 14){
+      Uurl='https://vedabase.io/en/library/bg/6/13-14/';
+    }
+    else if(a == 6 && b >= 20 && b <= 23){
+      Uurl='https://vedabase.io/en/library/bg/6/20-23/';
+    }
+    else if(a == 10 && b >= 4 && b <= 5){
+      Uurl='https://vedabase.io/en/library/bg/10/4-5/';
+    }
+    else if(a == 10 && b >= 12 && b <= 13){
+      Uurl='https://vedabase.io/en/library/bg/10/12-13/';
+    }
+    else if(a == 11 && b >= 10 && b <= 11){
+      Uurl='https://vedabase.io/en/library/bg/11/10-11/';
+    }
+    else if(a == 11 && b >= 26 && b <= 27){
+      Uurl='https://vedabase.io/en/library/bg/11/26-27/';
+    }
+    else if(a == 11 && b >= 41 && b <= 42){
+      Uurl='https://vedabase.io/en/library/bg/11/41-42/';
+    }
+    else if(a == 12 && b >= 3 && b <= 4){
+      Uurl='https://vedabase.io/en/library/bg/12/3-4/';
+    }
+    else if(a == 12 && b >= 6 && b <= 7){
+      Uurl='https://vedabase.io/en/library/bg/12/6-7/';
+    }
+    else if(a == 12 && b >= 13 && b <= 14){
+      Uurl='https://vedabase.io/en/library/bg/12/13-14/';
+    }
+    else if(a == 12 && b >= 18 && b <= 19){
+      Uurl='https://vedabase.io/en/library/bg/12/18-19/';
+    }
+    else if(a == 13 && b >= 1 && b <= 2){
+      Uurl='https://vedabase.io/en/library/bg/13/1-2/';
+    }
+    else if(a == 13 && b >= 6 && b <= 7){
+      Uurl='https://vedabase.io/en/library/bg/13/6-7/';
+    }
+    else if(a == 13 && b >= 8 && b <= 12){
+      Uurl='https://vedabase.io/en/library/bg/13/8-12/';
+    }
+    else if(a == 14 && b >= 22 && b <= 25){
+      Uurl='https://vedabase.io/en/library/bg/14/22-25/';
+    }
+    else if(a == 15 && b >= 3 && b <= 4){
+      Uurl='https://vedabase.io/en/library/bg/15/3-4/';
+    }
+    else if(a == 16 && b >= 1 && b <= 3){
+      Uurl='https://vedabase.io/en/library/bg/16/1-3/';
+    }
+    else if(a == 16 && b >= 11 && b <= 12){
+      Uurl='https://vedabase.io/en/library/bg/16/11-12/';
+    }
+    else if(a == 16 && b >= 13 && b <= 15){
+      Uurl='https://vedabase.io/en/library/bg/16/13-15/';
+    }
+    else if(a == 17 && b >= 5 && b <= 6){
+      Uurl='https://vedabase.io/en/library/bg/17/5-6/';
+    }
+    else if(a == 17 && b >= 26 && b <= 27){
+      Uurl='https://vedabase.io/en/library/bg/17/26-27/';
+    }
+    else if(a == 18 && b >= 51 && b <= 53){
+      Uurl='https://vedabase.io/en/library/bg/18/51-53/';
+    }
+    else{
+      Uurl='https://vedabase.io/en/library/bg/$a/$b/';
+    }
+    return Uurl;
+  }
+  String? getAudioUrlString(int bgChapterNum, int bgShlokaNum){
+    if(bgChapterNum<10 && bgShlokaNum<10){
+      if(bgChapterNum == 1 && bgShlokaNum >= 4 && bgShlokaNum <= 6)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/001_004-006.mp3";
+      }
+      else if(bgChapterNum == 3 && bgShlokaNum >= 1 && bgShlokaNum <= 2)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/003_001-002.mp3";
+      }
+      else if(bgChapterNum == 5 && bgShlokaNum >= 8 && bgShlokaNum <= 9)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/005_008-009.mp3";
+      }
+      else if(bgChapterNum == 8 && bgShlokaNum >= 1 && bgShlokaNum <= 2)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/008_001-002.mp3";
+      }
+      else if(bgChapterNum == 8 && bgShlokaNum >= 9)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/008_009-010.mp3";
+      }
+      else if(bgChapterNum == 9 && bgShlokaNum >= 7 && bgShlokaNum <= 8)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/009_007-008.mp3";
+      }
+      else Finalurl="https://www.holy-bhagavad-gita.org/public/audio/00${bgChapterNum}_00$bgShlokaNum.mp3";
+    }
+    else if(bgChapterNum>=10 && bgShlokaNum>=10){
+      if(bgChapterNum == 10 && bgShlokaNum >= 12 && bgShlokaNum <= 13)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/010_012-013.mp3";
+      }
+      else if(bgChapterNum == 10 && bgShlokaNum >= 16 && bgShlokaNum <= 17)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/010_016-017.mp3";
+      }
+      else if(bgChapterNum == 11 && bgShlokaNum >= 10 && bgShlokaNum <= 11)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/011_010-011.mp3";
+      }
+      else if(bgChapterNum == 11 && bgShlokaNum >= 26 && bgShlokaNum <= 27)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/011_026-027.mp3";
+      }
+      else if(bgChapterNum == 11 && bgShlokaNum >= 28 && bgShlokaNum <= 29)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/011_028-029.mp3";
+      }
+      else if(bgChapterNum == 11 && bgShlokaNum >= 41 && bgShlokaNum <= 42)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/011_041-042.mp3";
+      }
+      else if(bgChapterNum == 11 && bgShlokaNum >= 52 && bgShlokaNum <= 53)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/011_052-053.mp3";
+      }
+      else if(bgChapterNum == 12 && bgShlokaNum >= 13 && bgShlokaNum <= 14)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/012_013-014.mp3";
+      }
+      else if(bgChapterNum == 12 && bgShlokaNum >= 18 && bgShlokaNum <= 19)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/012_018-019.mp3";
+      }
+      else if(bgChapterNum == 13 && bgShlokaNum >= 10 && bgShlokaNum <= 12)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/013_010-012.mp3";
+      }
+      else if(bgChapterNum == 14 && bgShlokaNum >= 11 && bgShlokaNum <= 13)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/014_011-013.mp3";
+      }
+      else if(bgChapterNum == 14 && bgShlokaNum >= 14 && bgShlokaNum <= 15)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/014_014-015.mp3";
+      }
+      else if(bgChapterNum == 14 && bgShlokaNum >= 22 && bgShlokaNum <= 23)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/014_022-023.mp3";
+      }
+      else if(bgChapterNum == 14 && bgShlokaNum >= 24 && bgShlokaNum <= 25)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/014_024-025.mp3";
+      }
+      else if(bgChapterNum == 16 && bgShlokaNum >= 13 && bgShlokaNum <= 15)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/016_013-015.mp3";
+      }
+      else if(bgChapterNum == 16 && bgShlokaNum >= 19 && bgShlokaNum <= 20)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/016_019-020.mp3";
+      }
+      else if(bgChapterNum == 17 && bgShlokaNum >= 26 && bgShlokaNum <= 27)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/017_026-027.mp3";
+      }
+      else if(bgChapterNum == 18 && bgShlokaNum >= 15 && bgShlokaNum <= 16)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/018_015-016.mp3";
+      }
+      else if(bgChapterNum == 18 && bgShlokaNum >= 51 && bgShlokaNum <= 53)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/018_051-053.mp3";
+      }
+      else Finalurl="https://www.holy-bhagavad-gita.org/public/audio/0${bgChapterNum}_0$bgShlokaNum.mp3";
+    }
+    else if(bgChapterNum<10 && bgShlokaNum>=10){
+      if(bgChapterNum == 1 && bgShlokaNum >= 16 && bgShlokaNum <= 18)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/001_016-018.mp3";
+      }
+      else if(bgChapterNum == 1 && bgShlokaNum >= 21 && bgShlokaNum <= 22)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/001_021-022.mp3";
+      }
+      else if(bgChapterNum == 1 && bgShlokaNum >= 29 && bgShlokaNum <= 31)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/001_029-031.mp3";
+      }
+      else if(bgChapterNum == 1 && bgShlokaNum >= 32 && bgShlokaNum <= 33)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/001_032-033.mp3";
+      }
+      else if(bgChapterNum == 1 && bgShlokaNum >= 34 && bgShlokaNum <= 35)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/001_034-035.mp3";
+      }
+      else if(bgChapterNum == 2 && bgShlokaNum >= 42 && bgShlokaNum <= 43)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/002_042-043.mp3";
+      }
+      else if(bgChapterNum == 3 && bgShlokaNum >= 20 && bgShlokaNum <= 21)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/003_020-021.mp3";
+      }
+      else if(bgChapterNum == 4 && bgShlokaNum >= 29 && bgShlokaNum <= 30)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/004_029-030.mp3";
+      }
+      else if(bgChapterNum == 5 && bgShlokaNum >= 27 && bgShlokaNum <= 28)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/005_027-028.mp3";
+      }
+      else if(bgChapterNum == 6 && bgShlokaNum >= 12 && bgShlokaNum <= 13)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/006_012-013.mp3";
+      }
+      else if(bgChapterNum == 6 && bgShlokaNum >= 24 && bgShlokaNum <= 25)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/006_024-025.mp3";
+      }
+      else if(bgChapterNum == 6 && bgShlokaNum >= 41 && bgShlokaNum <= 42)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/006_041-042.mp3";
+      }
+      else if(bgChapterNum == 8 && bgShlokaNum >= 10)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/008_009-010.mp3";
+      }
+      else if(bgChapterNum == 8 && bgShlokaNum >= 23 && bgShlokaNum <= 26)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/008_023-026.mp3";
+      }
+      else if(bgChapterNum == 9 && bgShlokaNum >= 16 && bgShlokaNum <= 17)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/009_016-017.mp3";
+      }
+      else Finalurl="https://www.holy-bhagavad-gita.org/public/audio/00${bgChapterNum}_0$bgShlokaNum.mp3";
+    }
+    else{
+      if(bgChapterNum == 10 && bgShlokaNum >= 4 && bgShlokaNum <= 5)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/010_004-005.mp3";
+      }
+      else if(bgChapterNum == 12 && bgShlokaNum >= 3 && bgShlokaNum <= 4)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/012_003-004.mp3";
+      }
+      else if(bgChapterNum == 12 && bgShlokaNum >= 6 && bgShlokaNum <= 7)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/012_006-007.mp3";
+      }
+      else if(bgChapterNum == 13 && bgShlokaNum >= 8 && bgShlokaNum <= 9)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/013_008-012.mp3";
+      }
+      else if(bgChapterNum == 14 && bgShlokaNum >= 3 && bgShlokaNum <= 4)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/014_003-004.mp3";
+      }
+      else if(bgChapterNum == 15 && bgShlokaNum >= 3 && bgShlokaNum <= 4)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/015_003-004.mp3";
+      }
+      else if(bgChapterNum == 16 && bgShlokaNum >= 1 && bgShlokaNum <= 3)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/016_001-003.mp3";
+      }
+      else if(bgChapterNum == 17 && bgShlokaNum >= 5 && bgShlokaNum <= 6)
+      {
+        Finalurl="https://www.holy-bhagavad-gita.org/public/audio/017_005-006.mp3";
+      }
+      else Finalurl="https://www.holy-bhagavad-gita.org/public/audio/0${bgChapterNum}_00$bgShlokaNum.mp3";
+    }
+    return Finalurl;
+  }
+  Future getWebsiteData(int i,int j) async {
+    int bgChapterNum = i;
+    int bgShlokaNum = j;
+    Finalurl = getAudioUrlString(bgChapterNum, bgShlokaNum)!;
+    final url=Uri.parse(getUrlString(bgChapterNum, bgShlokaNum)!);
+    final response= await http.get(url);
+    dom.Document html=dom.Document.html(response.body);
+    final ttle=html
+        .querySelectorAll(' #content >div ')
+        .map((e) => e.text)
+        .map((e) => e.replaceAll('<br>', '\n'))
+        .toString();
+    String? title=extractData(ttle, "(", "Devanagari");
+    String? Devanagri = extractData(ttle, "Devanagari", " Text");
+    String? Text = extractData(ttle, "Text", " Synonyms");
+    String? Synonyms = extractData(ttle, "Synonyms", " Translation");
+    String? Translation = extractData(ttle, "Translation", " Purport");
+    String? Purport = extractData(ttle, "Purport", " )");
+    print(title);
+    setState(() {
+      articles=List.generate(ttle.length,
+              (index) => Article(
+            titles: title?.replaceAll("  ", "").replaceAll("\n", ""),
+            devnagri: Devanagri?.replaceAll("  ", "").replaceAll("\n", "").replaceAll(" ।", "।\n"),
+            verse_text: Text?.replaceAll("  ", "").replaceAll("\n", ""),
+            translation_title: Synonyms?.replaceAll("  ", "").replaceAll("\n", ""),
+            translation: Translation?.replaceAll("  ", "").replaceAll("\n", ""),
+            // purput_tile: purpot_title,
+            purpot: Purport?.replaceAll("  ", "").replaceAll("\n", ""),
+          ));
+    });
+  }
   void initState() {
     // TODO: implement initState
     super.initState();
+    getWebsiteData(cnum,verse_num);
+    print("$cnum,$verse_num");
     audioPlayer.onPlayerStateChanged.listen((state) {
       setState(() {
-        isPlaying = state == PlayerState.PLAYING;
+        isPlaying = state == PlayerState.playing;
       });
     });
   }
@@ -30,6 +396,9 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
     audioPlayer.dispose();
     super.dispose();
   }
+
+  String Finalurl="";
+
   @override
   int index = 0;
   Widget build(BuildContext context) {
@@ -73,32 +442,44 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
         ),
         body: Stack(
           children: [
-            dashboardContainer('asset/images/dashboard.jpg'),
-
-            SingleChildScrollView(
-              child: Column(
+            dashboardContainer('asset/images/newdashboard.jpg'),
+            ListView.builder(itemCount:articles.length > 1 ? 1:articles.length,itemBuilder: (context,index){
+              final article=articles[index];
+              return ListBody(
                 children: [
                   SizedBox(
-                    height:10,
+                    height: 10,
                   ),
-                  Container(
-                      alignment: Alignment.center,
-                      child: Text('Bg.1.1',style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold),textAlign: TextAlign.center,)),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(article.titles!,textAlign: TextAlign.center
+                      ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                  ),
+
                   SizedBox(
-                    height: 40,
+                    height: 10,
                   ),
-                  Container(
-                      alignment: Alignment.center,
-                      child: Text('धृतराष्ट्र उवाच \nधर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सव: ।\n मामका: पाण्डवाश्चैव किमकुर्वत सञ्जय ॥ १ ॥',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),textAlign: TextAlign.center,)),
+                  Text("Devanagri",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
                   SizedBox(
-                    height: 11,
+                    height: 10,
                   ),
-                  Container(
-                      alignment: Alignment.center,
-                      child: Text('dhṛtarāṣṭra uvāca\ndharma-kṣetre kuru-kṣetre\nsamavetā yuyutsavaḥ\nmāmakāḥ pāṇḍavāś caiva\nkim akurvata sañjaya',style: TextStyle(fontSize: 25,),textAlign: TextAlign.center,)),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(article.devnagri!,textAlign: TextAlign.center,style: TextStyle(fontWeight:FontWeight.w400,fontSize: 20)),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text("Text",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(article.verse_text!,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                  ),
                   Container(
                     alignment: Alignment.center,
-
                     child:
                     CircleAvatar(
                       radius: 35,
@@ -111,77 +492,63 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
                           if(isPlaying){
                             await audioPlayer.pause();
                           }else{
-                            String url = 'https://www.holy-bhagavad-gita.org/public/audio/001_001.mp3';
-                            await audioPlayer.play(url);
+                            String url = Finalurl;
+                            await audioPlayer.play(UrlSource(url));
                           }
                         },
                       ),
-                    ),
+                    ),),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text("Synonyms",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(article.translation_title!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
                   ),
                   SizedBox(
-                    height: 11,
+                    height: 10,
                   ),
-                  Container(
-                      alignment: Alignment.center,
-                      child: Text('Translation',style: TextStyle(fontSize: 35,fontWeight: FontWeight.w400),textAlign: TextAlign.center,)),
+                  Text("Translation",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
                   SizedBox(
-                    height: 11,
+                    height: 10,
                   ),
-                  Container(
-                      alignment: Alignment.center,
-                      child: Text('Dhṛtarāṣṭra said: O Sañjaya, after my sons and the sons of Pāṇḍu assembled in the place of pilgrimage at Kurukṣetra, desiring to fight, what did they do?',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),textAlign: TextAlign.center,)),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(article.translation!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
+                  ),
                   SizedBox(
-                    height: 25,
+                    height: 10,
                   ),
-                  Container(
-                      alignment: Alignment.center,
-                      child: Text('Purport',style: TextStyle(fontSize: 35,fontWeight: FontWeight.w400),textAlign: TextAlign.center,)),
+                  Text("Purport",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
                   SizedBox(
-                    height: 11,
+                    height: 10,
                   ),
-                  Container(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Text('Bhagavad-gītā is the widely read theistic science summarized in the Gītā-māhātmya (Glorification of the Gītā). There it says that one should read Bhagavad-gītā very scrutinizingly with the help of a person who is a devotee of Śrī Kṛṣṇa and try to understand it without personally motivated interpretations. The example of clear understanding is there in the Bhagavad-gītā itself, in the way the teaching is understood by Arjuna, who heard the Gītā directly from the Lord. If someone is fortunate enough to understand the Bhagavad-gītā in that line of disciplic succession, without motivated interpretation, then he surpasses all studies of Vedic wisdom, and all scriptures of the world. One will find in the Bhagavad-gītā all that is contained in other scriptures, but the reader will also find things which are not to be found elsewhere. That is the specific standard of the Gītā. It is the perfect theistic science because it is directly spoken by the Supreme Personality of Godhead, Lord Śrī Kṛṣṇa.\n\nThe topics discussed by Dhṛtarāṣṭra and Sañjaya, as described in the Mahābhārata, form the basic principle for this great philosophy. It is understood that this philosophy evolved on the Battlefield of Kurukṣetra, which is a sacred place of pilgrimage from the immemorial time of the Vedic age. It was spoken by the Lord when He was present personally on this planet for the guidance of mankind.\n\nThe word dharma-kṣetra (a place where religious rituals are performed) is significant because, on the Battlefield of Kurukṣetra, the Supreme Personality of Godhead was present on the side of Arjuna. Dhṛtarāṣṭra, the father of the Kurus, was highly doubtful about the possibility of his sons’ ultimate victory. In his doubt, he inquired from his secretary Sañjaya, “What did they do?” He was confident that both his sons and the sons of his younger brother Pāṇḍu were assembled in that Field of Kurukṣetra for a determined engagement of the war. Still, his inquiry is significant. He did not want a compromise between the cousins and brothers, and he wanted to be sure of the fate of his sons on the battlefield. Because the battle was arranged to be fought at Kurukṣetra, which is mentioned elsewhere in the Vedas as a place of worship – even for the denizens of heaven – Dhṛtarāṣṭra became very fearful about the influence of the holy place on the outcome of the battle. He knew very well that this would influence Arjuna and the sons of Pāṇḍu favorably, because by nature they were all virtuous. Sañjaya was a student of Vyāsa, and therefore, by the mercy of Vyāsa, Sañjaya was able to envision the Battlefield of Kurukṣetra even while he was in the room of Dhṛtarāṣṭra. And so, Dhṛtarāṣṭra asked him about the situation on the battlefield.\n\nBoth the Pāṇḍavas and the sons of Dhṛtarāṣṭra belong to the same family, but Dhṛtarāṣṭra’s mind is disclosed herein. He deliberately claimed only his sons as Kurus, and he separated the sons of Pāṇḍu from the family heritage. One can thus understand the specific position of Dhṛtarāṣṭra in his relationship with his nephews, the sons of Pāṇḍu. As in the paddy field the unnecessary plants are taken out, so it is expected from the very beginning of these topics that in the religious field of Kurukṣetra, where the father of religion, Śrī Kṛṣṇa, was present, the unwanted plants like Dhṛtarāṣṭra’s son Duryodhana and others would be wiped out and the thoroughly religious persons, headed by Yudhiṣṭhira, would be established by the Lord. This is the significance of the words dharma-kṣetre and kuru-kṣetre, apart from their historical and Vedic importance.',style: TextStyle(fontSize: 25,),textAlign: TextAlign.justify,),
-                      )),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(article.purpot!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
+                  ),
                 ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CircleAvatar(
-                radius: 30,
-                child: Icon(Icons.bookmark_add_outlined,size: 50,),
-              ),
-            ),
+              );
+
+            }),
             Container(
-              margin: EdgeInsets.only(left: 325,top: 10),
-              child: CircleAvatar(
-                radius: 30,
-                child: Icon(Icons.favorite_outline,size: 50,),
-              ),
-            ),
-            Container(
-
-              margin: EdgeInsets.only(top: 320,left: 315),
-              child: ElevatedButton(onPressed: (){
-
-              }, child: Icon(Icons.navigate_next,size: 40,)),
-            ),
-            Container(
-
-              margin: EdgeInsets.only(top: 320,left: 4),
-              child: ElevatedButton(onPressed: (){
-
-              }, child: Icon(Icons.navigate_before,size: 40,)),
-            ),
-            Container(
-
-              margin: EdgeInsets.only(top: 650,left: 288),
-              child: ElevatedButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Synonyms()));
-              }, child: Text('Synonyms'),
+              alignment: Alignment.topRight,
+              child: InkWell(
+                onTap: (){
+                      final data = FavouriteModel(book: 'BG', chapterNum: cnum, shlokaNum: verse_num,image: 'https://w0.peakpx.com/wallpaper/485/512/HD-wallpaper-lord-krishna-for-drawing-lord-krishna-for-lord-krishna-art.jpg');
+                      final box = Boxes.getData();
+                      box.add(data);
+                      // data.save();
+                      print(box);
+                },
+                child: CircleAvatar(
+                  radius: 25,
+                  child: Icon(Icons.favorite_outline,size: 45,),
+                ),
               ),
             ),
           ],
@@ -189,4 +556,22 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
       );
     }
 
+}
+class Article {
+  late final String? titles;
+  late final String? devnagri;
+  late final String? verse_text;
+  late final String? translation_title;
+  late final String? translation;
+  // late final String? purput_tile;
+  late final String? purpot;
+  Article({
+    required this.titles,
+    required this.devnagri,
+    required this.verse_text,
+    required this.translation_title,
+    required this.translation,
+    // required this.purput_tile,
+    required this.purpot,
+  });
 }

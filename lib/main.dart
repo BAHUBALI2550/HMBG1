@@ -1,18 +1,20 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:hmbg/DashBoarddrawer.dart';
-import 'package:hmbg/Login_Page.dart';
-import 'package:hmbg/Question_01.dart';
-import 'package:hmbg/QuizBeginPage.dart';
+import 'package:hive/hive.dart';
 import 'package:hmbg/dashboard.dart';
-import 'package:hmbg/quizResult.dart';
-import 'package:hmbg/readContinuation.dart';
+import 'package:hmbg/models/favourite_model.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'ShlokPage1_1.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  var directory = await getApplicationDocumentsDirectory();
+  Hive.init(directory.path);
+
+  Hive.registerAdapter(FavouriteModelAdapter());
+  await Hive.openBox<FavouriteModel>('favourite');
+
   runApp(const MyApp());
 }
 
@@ -39,14 +41,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.orange,
 
         elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton. styleFrom(
-            primary:Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),
-          side: BorderSide(
-            color: Colors.indigo,
-            width: 2,
-          ),
-          ),
-          )
+            style: ElevatedButton.styleFrom(
+              primary: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(
+                  color: Colors.indigo,
+                  width: 2,
+                ),
+              ),
+            )
         ),
 
       ),
@@ -118,6 +122,7 @@ class SplashPageState extends State<SplashPage> with SingleTickerProviderStateMi
 
   static const String KEYLOGIN = "Login";
 
+
   late Animation animation;
   late AnimationController animationController;
   @override
@@ -158,18 +163,21 @@ class SplashPageState extends State<SplashPage> with SingleTickerProviderStateMi
 
     var sharedpref = await SharedPreferences.getInstance();
     var isLoggedIn = sharedpref.getBool(KEYLOGIN);
-    Timer(Duration(seconds: 4), (){
-      if(isLoggedIn!=null){
-        if(isLoggedIn){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(),));
-        }else{
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login_Page(),));
-        }
-      }else {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login_Page(),));
-      }
-
-    },);
+    Timer(Duration(seconds: 4), () {
+      //   if(isLoggedIn!=null){
+      //     if(isLoggedIn){
+      //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(),));
+      //     }else{
+      //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login_Page(),));
+      //     }
+      //   }else {
+      //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login_Page(),));
+      //   }
+      //
+      // },
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashBoard()));
+    },
+    );
   }
 }
 class HomePage extends StatelessWidget{

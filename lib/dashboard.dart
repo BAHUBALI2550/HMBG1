@@ -1,9 +1,18 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:hmbg/BGMain_Page.dart';
-import 'package:hmbg/Chapter%20_01verses.dart';
 import 'package:hmbg/DashBoarddrawer.dart';
+import 'package:hmbg/QuizBeginPage.dart';
+import 'package:hmbg/Quiz_Main.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:hmbg/favourite_screen.dart';
+
+import 'package:hmbg/readContinuation.dart';
+
+
+
 
 // class DashBoard extends StatefulWidget{
 //   var nam="";
@@ -198,7 +207,8 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
 
-  int currentIndex = 0;
+  int _current = 0;
+  final CarouselController _controller = CarouselController();
 
   List<String> images = [
     "https://i.pinimg.com/564x/9b/5c/1a/9b5c1a91b70ba925d9f849e157d1fdf7.jpg",
@@ -214,6 +224,36 @@ class _DashBoardState extends State<DashBoard> {
     "https://vedabase.io/media/images/en-sb7_Qj96zoT.2e16d0ba.fill-240x380.jpg",
   ];
   List<String> BookName = ["Bhagavad Gita","Ramayana","Mahabharata","Srimad Bhagvatama"];
+  List<dynamic> BookAddress = [ReadContinue(),Quiz_Main(),QuizBegin(),Quiz_Main()];
+  Widget _buildDotsLoader() {
+    return Container(
+      decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: Colors.grey.withOpacity(0.45),
+          borderRadius: BorderRadius.all(Radius.circular(20))
+      ),
+      padding: EdgeInsets.only(right: 8, left: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: images.asMap().entries.map((entry) {
+          return GestureDetector(
+            onTap: () => _controller.animateToPage(entry.key),
+            child: Container(
+              width: (_current == entry.key) ? 17.0 : 8.0,
+              height: 8.0,
+              margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+              decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: _current == entry.key ? Colors.white
+                      .withOpacity(1.0) : Colors.grey
+                      .withOpacity(0.9)),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -221,6 +261,44 @@ class _DashBoardState extends State<DashBoard> {
       drawer: DashBoardDrawer(),
       appBar: AppBar(
         title: Text('HMBG'),
+        actions: [
+        IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const FavouriteScreen()));
+              },
+              icon: const Icon(Icons.favorite),
+            ),
+        ],
+        // actions: [
+        //   badges.Badge(
+        //     badgeContent: Consumer<CartProvider>(
+        //       builder: (context, value, child) {
+        //         return Text(
+        //           value.getCounter().toString(),
+        //           style: const TextStyle(
+        //               color: Colors.white, fontWeight: FontWeight.bold),
+        //         );
+        //       },
+        //     ),
+        //     position: BadgePosition.custom(start: 30, bottom: 30),
+        //     child: IconButton(
+        //       onPressed: () {
+        //         Navigator.push(
+        //             context,
+        //             MaterialPageRoute(
+        //                 builder: (context) => const CartScreen()));
+        //       },
+        //       icon: const Icon(Icons.favorite),
+        //     ),
+        //   ),
+        //   const SizedBox(
+        //     width: 20.0,
+        //   ),
+        //
+        // ],
       ),
       body: SafeArea(
           child: Stack(
@@ -231,44 +309,57 @@ class _DashBoardState extends State<DashBoard> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Stack(
-                          children: [
-                            Container(
-                              height: 300,
-                              width: double.infinity,
-                              child: PageView.builder(
-                                onPageChanged: (index){
-                                  setState(() {
-                                    currentIndex = index;
-                                  });
-                                },
-                                itemCount: images.length,
-                                itemBuilder: (context,index){
-                                  return SizedBox(
-                                    height: 300,
-                                    width: double.infinity,
-                                    child: Image.network(
-                                      images[index%images.length],
-                                      fit: BoxFit.cover,
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            Positioned(
-                              left: 0.0,
-                              right: 0.0,
-                              bottom: 5.0,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 300,
+                            width: double.infinity,
+                            child: LayoutBuilder(builder: (BuildContext context,
+                                BoxConstraints constraints) {
+                              return Stack(
+                                alignment: Alignment.center,
                                 children: [
-                                  for(var i = 0; i < images.length; i++) buildIndicator(currentIndex == i )
+                                  Positioned.fill(
+                                    child: CarouselSlider(
+                                      items: images
+                                          .map((deal) => GestureDetector(
+                                        onTap: () {
+                                          // todo -> navigate to someplace
+                                        },
+                                        child: CachedNetworkImage(
+                                          imageUrl: deal,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ))
+                                          .toList(),
+                                      carouselController: _controller,
+                                      options: CarouselOptions(
+                                          autoPlay: true,
+                                          viewportFraction: 1.0,
+                                          autoPlayInterval: Duration(seconds: 3),
+                                          autoPlayAnimationDuration:
+                                          Duration(milliseconds: 777),
+                                          autoPlayCurve: Curves.fastOutSlowIn,
+                                          height: constraints.maxHeight,
+                                          onPageChanged: (index, reason) {
+                                            setState(() {
+                                              _current = index;
+                                            });
+                                          }),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    child: _buildDotsLoader(),
+                                    bottom: constraints.maxHeight * 0.02,
+                                  ),
                                 ],
-                              ),
-                            ),
-                          ],
-                        ),
+                              );
+                            }),
+
+                          ),
+                        ],
+                      ),
                     ),
                     Container(
                       alignment: Alignment.center,
@@ -291,16 +382,16 @@ class _DashBoardState extends State<DashBoard> {
                         //     crossAxisAlignment: CrossAxisAlignment.center,
                         //     children: [
                         //       Container(
-                        //         height: 220,
-                        //         width: 150,
+                        //         height: 185,
+                        //         width: 160,
                         //         child: Image.network(
                         //           "https://vedabase.io/media/images/en-bg_34MulJK.2e16d0ba.fill-160x254.jpg",
                         //           fit: BoxFit.cover,
                         //         ),
                         //       ),
                         //       Container(
-                        //         height: 220,
-                        //         width: 150,
+                        //         height: 185,
+                        //         width: 160,
                         //         child: Image.network(
                         //           "https://vedabase.io/media/images/en-bg_34MulJK.2e16d0ba.fill-160x254.jpg",
                         //           fit: BoxFit.cover,
@@ -318,16 +409,16 @@ class _DashBoardState extends State<DashBoard> {
                         //     crossAxisAlignment: CrossAxisAlignment.center,
                         //     children: [
                         //       Container(
-                        //         height: 220,
-                        //         width: 150,
+                        //         height: 185,
+                        //         width: 160,
                         //         child: Image.network(
                         //           "https://vedabase.io/media/images/en-bg_34MulJK.2e16d0ba.fill-160x254.jpg",
                         //           fit: BoxFit.cover,
                         //         ),
                         //       ),
                         //       Container(
-                        //         height: 220,
-                        //         width: 150,
+                        //         height: 185,
+                        //         width: 160,
                         //         child: Image.network(
                         //           "https://vedabase.io/media/images/en-bg_34MulJK.2e16d0ba.fill-160x254.jpg",
                         //           fit: BoxFit.cover,
@@ -337,20 +428,28 @@ class _DashBoardState extends State<DashBoard> {
                         //   ),
                         // ),
                     Container(
-                      height: 500,
                       width: double.infinity,
                       margin: EdgeInsets.only(top: 10),
-                      child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2), itemBuilder: (context, index) {
+                        child:
+                      GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+
+                        itemBuilder: (context, index) {
                         return Padding(
-                          padding: const EdgeInsets.only(left: 10.0,right: 8.0),
+                          padding: const EdgeInsets.only(left: 1.0),
                           child: Container(
-                            child: BookCard(BookCover[index],BookName[index]),
+                            child: GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => BookAddress[index]));
+                                },
+                                child: BookCard(BookCover[index],BookName[index])),
                           ),
                         );
                       },
                         itemCount: BookCover.length,),
-                    ),
 
+                    ),
                   ],
                 ),
               ),
@@ -390,43 +489,43 @@ class dashboardContainer extends StatelessWidget{
 }
 
 class BookCard extends StatelessWidget {
-  
   String url;
   String name;
   BookCard(this.url,this.name);
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          padding: EdgeInsets.all(8.0),
-          height: 220,
-          width: 150,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          ),
-          child: Image.network(
-            url,
-            fit: BoxFit.cover,
-          ),
+        // Container(
+        //   padding: EdgeInsets.all(8.0),
+        //   height: 200,
+        //   width: 160,
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        //   ),
+        //   child: Image.network(
+        //     url,
+        //     fit: BoxFit.fitHeight,
+        //   ),
+        // ),
+        Expanded(child: Image.network(url)),
+        SizedBox(
+          height: 10,
         ),
         Container(
           padding: EdgeInsets.only(top: 2.0),
-          width: 150,
+          width: 140,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(10.0))
           ),
           height: 20,
-          child: Text(name,style: TextStyle(fontFamily: 'Samarkan',),textAlign: TextAlign.center,),
+          child: Text(name,style: TextStyle(fontFamily: 'Samarkan',fontSize: 14),textAlign: TextAlign.center,),
+        ),
+        SizedBox(
+          height: 10,
         ),
       ],
     );
   }
 }
-
-
-
-
-

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hmbg/Chapter%20_01verses.dart';
 import 'package:hmbg/Quiz_Main.dart';
 import 'package:hmbg/dashboard.dart';
 import 'package:hmbg/learn.dart';
