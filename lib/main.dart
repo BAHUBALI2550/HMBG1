@@ -1,17 +1,21 @@
 import 'dart:async';
-
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:hmbg/Login_Page.dart';
-import 'package:hmbg/Question_01.dart';
-import 'package:hmbg/QuizBeginPage.dart';
+import 'package:hive/hive.dart';
 import 'package:hmbg/dashboard.dart';
-import 'package:hmbg/quizResult.dart';
-import 'package:hmbg/readContinuation.dart';
+import 'package:hmbg/models/favourite_model.dart';
+import 'package:hmbg/readContinuationBhagvatam.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'ShlokPage1_1.dart';
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  var directory = await getApplicationDocumentsDirectory();
+  Hive.init(directory.path);
 
-void main() {
+  Hive.registerAdapter(FavouriteModelAdapter());
+  await Hive.openBox<FavouriteModel>('favourite');
+
   runApp(const MyApp());
 }
 
@@ -19,125 +23,60 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-
-        primarySwatch: Colors.orange,
-
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton. styleFrom(
-            primary:Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),
-          side: BorderSide(
-            color: Colors.indigo,
-            width: 2,
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.orange,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  side: BorderSide(
+                    color: Colors.indigo,
+                    width: 2,
+                  ),
+                ),
+              )
           ),
-          ),
-          )
         ),
 
-      ),
+        home: ReadBhagvatam(),
 
-
-      home: SplashPage(),
-
-    );
+      );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
@@ -151,60 +90,142 @@ class SplashPageState extends State<SplashPage> with SingleTickerProviderStateMi
 
   static const String KEYLOGIN = "Login";
 
-  late Animation animation;
+
+  Animation? animation ;
   late AnimationController animationController;
+  late StreamSubscription subscription;
+  var isDeviceConnected;
   @override
   void initState() {
     // TODO: implement initState
+    initTimer();
     super.initState();
-    animationController = AnimationController(vsync: this,duration: Duration(seconds: 4));
-    animation = Tween(begin: 0.0,end: 250.0).animate(animationController);
-
-    animationController.addListener(() {
-      setState(() {
-
-      });
-    });
-    animationController.forward();
-
-    whereToGo();
     // ignore: use_function_type_syntax_for_parameters
+  }
+  void initTimer()async{
+    if(await checkinternet()){
+      animationController = AnimationController(vsync: this,duration: Duration(seconds: 4),);
+      animation = Tween(begin: 0.0,end: 250.0).animate(animationController);
+      animationController.addListener(() {
+        setState(() {
 
+        });
+      });
+      animationController.forward();
+      whereToGo();
+    }
+    else{
+    }
+  }
+
+  Future<bool> checkinternet() async{
+    var connectivityResult = await(Connectivity().checkConnectivity());
+    if(connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi)
+      return true;
+    else return false;
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(children: [
-          Center(
-            child:
-            Container(
-              width: double.infinity,
-                height: double.infinity,
-                child: Image.asset('asset/images/p1.1.3.png',fit: BoxFit.fill,))),
-          Center(child: Image.asset('asset/images/inspire_logo.png',color: Colors.black,width: animation.value,height: animation.value,fit: BoxFit.fill,))
-        ]
-    )
+        body:Container(
+          child: FutureBuilder(
+            future: checkinternet(),
+            builder: (BuildContext context,snap){
+              if(snap.data == true){
+                return     Stack(children: [
+                  Center(
+                      child:
+                      Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: Image.asset('asset/images/p1.1.3.png',fit: BoxFit.fill,))),
+                  Center(child: Image.asset('asset/images/inspire_logo.png',color: Colors.black,width: animation!.value,height: animation!.value,fit: BoxFit.fill,))
+                ]
+                );
+              }
+              else{
+                return Scaffold(
+                    appBar: AppBar(
+                      centerTitle: true,
+                      title: Text('You are offline'),
+                      automaticallyImplyLeading: false,
+                    ),
+                    body: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('asset/images/nointernetscreenimage.png'),
+
+                        Column(
+                          children: [
+                            Container(
+
+                              child: Text('Whoops!',style: TextStyle(fontSize:30,fontWeight: FontWeight.bold),),
+                            ),
+                            Container(
+                              child: Text('No Internet connection found.Check your',style: TextStyle(fontSize:15)),
+                            ),
+                            Container(
+                              child: Text('connection or try again.',style: TextStyle(fontSize:15)),
+                            ),
+                            ElevatedButton(onPressed: (){
+                              setState(() {
+                                initTimer();
+                              });
+                            }, child: Text("Retry"))
+                          ],
+                        ),
+                      ],
+                    )
+                );
+              }
+            }
+          ),
+        ),
+
+    //     Stack(children: [
+    //       Center(
+    //         child:
+    //         Container(
+    //           width: double.infinity,
+    //             height: double.infinity,
+    //             child: Image.asset('asset/images/p1.1.3.png',fit: BoxFit.fill,))),
+    //       Center(child: Image.asset('asset/images/inspire_logo.png',color: Colors.black,width: animation.value,height: animation.value,fit: BoxFit.fill,))
+    //     ]
+    // )
     );
   }
+
+
   void whereToGo() async {
 
-    var sharedpref = await SharedPreferences.getInstance();
-    var isLoggedIn = sharedpref.getBool(KEYLOGIN);
-    Timer(Duration(seconds: 4), (){
-      if(isLoggedIn!=null){
-        if(isLoggedIn){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(),));
-        }else{
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login_Page(),));
-        }
-      }else {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login_Page(),));
-      }
-
-    },);
+    // var sharedpref = await SharedPreferences.getInstance();
+    // var isLoggedIn = sharedpref.getBool(KEYLOGIN);
+    Timer(Duration(seconds: 4), () {
+      //   if(isLoggedIn!=null){
+      //     if(isLoggedIn){
+      //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(),));
+      //     }else{
+      //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login_Page(),));
+      //     }
+      //   }else {
+      //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login_Page(),));
+      //   }
+      //
+      // },
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashBoard(),
+      ));
+    },
+    );
   }
 }
+
 class HomePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
