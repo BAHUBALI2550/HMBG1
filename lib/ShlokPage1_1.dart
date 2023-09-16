@@ -350,6 +350,8 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
   Future getWebsiteData(int i,int j) async {
     int bgChapterNum = i;
     int bgShlokaNum = j;
+    String? Translation ="";
+    String? Purport ="";
     Finalurl = getAudioUrlString(bgChapterNum, bgShlokaNum)!;
     final url=Uri.parse(getUrlString(bgChapterNum, bgShlokaNum)!);
     final response= await http.get(url);
@@ -357,14 +359,19 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
     final ttle=html
         .querySelectorAll(' #content >div ')
         .map((e) => e.text)
-        .map((e) => e.replaceAll('<br>', '\n'))
         .toString();
     String? title=extractData(ttle, "(", "Devanagari");
     String? Devanagri = extractData(ttle, "Devanagari", " Text");
     String? Text = extractData(ttle, "Text", " Synonyms");
     String? Synonyms = extractData(ttle, "Synonyms", " Translation");
-    String? Translation = extractData(ttle, "Translation", " Purport");
-    String? Purport = extractData(ttle, "Purport", " )");
+    Purport = extractData(ttle, "Purport", " )");
+    if(Purport == null){
+      Translation = extractData(ttle, "Translation", " )");
+      Purport = "No Purport";
+    }else{
+      Translation = extractData(ttle, "Translation", " Purport");
+    }
+
     print(title);
     setState(() {
       articles=List.generate(ttle.length,

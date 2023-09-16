@@ -1,15 +1,21 @@
 
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hmbg/DashBoarddrawer.dart';
-import 'package:hmbg/QuizBeginPage.dart';
-import 'package:hmbg/Quiz_Main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:hmbg/blankPage.dart';
 import 'package:hmbg/favourite_screen.dart';
 
-import 'package:hmbg/readContinuation.dart';
+import 'package:hmbg/readContinuationBg.dart';
+import 'package:hmbg/readContinuationBhagvatam.dart';
+import 'package:hmbg/readContinuationKrsna.dart';
+import 'package:hmbg/readContinueRamayan.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 
 
@@ -207,24 +213,70 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
 
+  late StreamSubscription subscription;
+  var isDeviceConnected;
+
   int _current = 0;
   final CarouselController _controller = CarouselController();
+
+  @override
+  void initState(){
+    subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      setState(() => isDeviceConnected = result);
+      if(isDeviceConnected == ConnectivityResult.none){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => BlankPage()));
+      }
+    });
+    super.initState();
+  }
+
+  getConnectivity() {
+    if(isDeviceConnected == ConnectivityResult.none){
+      return Navigator.push(context, MaterialPageRoute(builder: (context) => BlankPage()));
+    }
+  }
+
+  @override
+  void dispose(){
+    subscription.cancel();
+    super.dispose();
+  }
+
+  // showDialogBox() => showCupertinoDialog<String>(
+  //     context: context,
+  //     builder: (BuildContext context) => CupertinoAlertDialog(
+  //       title: const Text('No Connection'),
+  //       content: const Text('Please Check your Internet Connectivity'),
+  //       actions: <Widget>[
+  //         TextButton(onPressed: () async{
+  //           Navigator.pop(context, 'Cancel');
+  //           setState(() => isAlertSet = false);
+  //           isDeviceConnected = await InternetConnectionChecker().hasConnection;
+  //           if(!isDeviceConnected && isAlertSet == false){
+  //             showDialogBox();
+  //             setState(() => isAlertSet = true);
+  //           }
+  //         },
+  //         child: const Text('OK'))
+  //       ],
+  //     ),
+  // );
 
   List<String> images = [
     "https://i.pinimg.com/564x/9b/5c/1a/9b5c1a91b70ba925d9f849e157d1fdf7.jpg",
     "https://asianmoviepulse.com/wp-content/uploads/2023/01/lAWhe5ck.jpeg",
-    "https://e0.pxfuel.com/wallpapers/389/25/desktop-wallpaper-arjuna-holding-wheel-chakra-arjun-mahabharat.jpg",
+    "https://i.pinimg.com/736x/d1/72/ad/d172ad7ba835c66859ecdd0d50f0e47c.jpg",
     "https://www.bvashram.org/wp-content/uploads/2005/11/bhagavatam-01.jpg",
   ];
   
   List<String> BookCover = [
     "https://vedabase.io/media/images/en-bg_34MulJK.2e16d0ba.fill-160x254.jpg",
     "https://vedabase.io/media/images/en-rkd.2e16d0ba.fill-160x254.jpg",
-    "https://vedabase.io/media/images/en-mbk.2e16d0ba.fill-160x254.jpg",
+    "https://vedabase.io/media/images/en-kb_h1BPd0D.2e16d0ba.fill-160x254.jpg",
     "https://vedabase.io/media/images/en-sb7_Qj96zoT.2e16d0ba.fill-240x380.jpg",
   ];
-  List<String> BookName = ["Bhagavad Gita","Ramayana","Mahabharata","Srimad Bhagvatama"];
-  List<dynamic> BookAddress = [ReadContinue(),Quiz_Main(),QuizBegin(),Quiz_Main()];
+  List<String> BookName = ["Bhagavad Gita","Ramayana","Krsna","Srimad Bhagvatama"];
+  List<dynamic> BookAddress = [ReadContinueBg(),ReadContinueRamayan(),KrsnaPage(),ReadBhagvatam()];
   Widget _buildDotsLoader() {
     return Container(
       decoration: BoxDecoration(
@@ -297,7 +349,6 @@ class _DashBoardState extends State<DashBoard> {
         //   const SizedBox(
         //     width: 20.0,
         //   ),
-        //
         // ],
       ),
       body: SafeArea(
@@ -376,57 +427,6 @@ class _DashBoardState extends State<DashBoard> {
                     SizedBox(
                       height: 8,
                     ),
-                        // Flexible(
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //     crossAxisAlignment: CrossAxisAlignment.center,
-                        //     children: [
-                        //       Container(
-                        //         height: 185,
-                        //         width: 160,
-                        //         child: Image.network(
-                        //           "https://vedabase.io/media/images/en-bg_34MulJK.2e16d0ba.fill-160x254.jpg",
-                        //           fit: BoxFit.cover,
-                        //         ),
-                        //       ),
-                        //       Container(
-                        //         height: 185,
-                        //         width: 160,
-                        //         child: Image.network(
-                        //           "https://vedabase.io/media/images/en-bg_34MulJK.2e16d0ba.fill-160x254.jpg",
-                        //           fit: BoxFit.cover,
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                        // SizedBox(
-                        //   height: 10,
-                        // ),
-                        // Flexible(
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //     crossAxisAlignment: CrossAxisAlignment.center,
-                        //     children: [
-                        //       Container(
-                        //         height: 185,
-                        //         width: 160,
-                        //         child: Image.network(
-                        //           "https://vedabase.io/media/images/en-bg_34MulJK.2e16d0ba.fill-160x254.jpg",
-                        //           fit: BoxFit.cover,
-                        //         ),
-                        //       ),
-                        //       Container(
-                        //         height: 185,
-                        //         width: 160,
-                        //         child: Image.network(
-                        //           "https://vedabase.io/media/images/en-bg_34MulJK.2e16d0ba.fill-160x254.jpg",
-                        //           fit: BoxFit.cover,
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
                     Container(
                       width: double.infinity,
                       margin: EdgeInsets.only(top: 10),
@@ -496,18 +496,6 @@ class BookCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Container(
-        //   padding: EdgeInsets.all(8.0),
-        //   height: 200,
-        //   width: 160,
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        //   ),
-        //   child: Image.network(
-        //     url,
-        //     fit: BoxFit.fitHeight,
-        //   ),
-        // ),
         Expanded(child: Image.network(url)),
         SizedBox(
           height: 10,

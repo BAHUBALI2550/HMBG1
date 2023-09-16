@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:hmbg/Chapter%20_01verses.dart';
 import 'package:hmbg/dashboard.dart';
 
-class ReadContinue extends StatefulWidget{
+class ReadContinueBg extends StatefulWidget{
   @override
-  State<ReadContinue> createState()  => ReadContinueState();
+  State<ReadContinueBg> createState()  => ReadContinueState();
 
 }
-class ReadContinueState extends State<ReadContinue>{
+class ReadContinueState extends State<ReadContinueBg>{
   int index = 0;
   @override
   Widget build(BuildContext context) {
@@ -136,7 +136,7 @@ class ReadContinueState extends State<ReadContinue>{
                 ),
               ),
             ),
-            Image.asset('asset/images/bhagavadgita-6.jpg'),
+            Image.network("https://i.pinimg.com/564x/9b/5c/1a/9b5c1a91b70ba925d9f849e157d1fdf7.jpg"),
             Container(
               margin: EdgeInsets.only(top: 255,left: 300),
               child: InkWell(
@@ -171,13 +171,12 @@ ChapterContainer(this.ind,this.verse_count);
               width: double.infinity,
               height: 70,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
                 color: Colors.black.withOpacity(0.7),
               ),
               child: Center(child: Text('Chapter : $ind',
                 style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white),)))
       );
-      ;
-
   }
 
 }

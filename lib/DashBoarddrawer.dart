@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:hmbg/Login_Page.dart';
-import 'package:hmbg/Quiz_Main.dart';
-import 'package:hmbg/dashboard.dart';
 
 class DashBoardDrawer extends StatelessWidget {
   const DashBoardDrawer({Key? key}) : super(key: key);
@@ -27,22 +23,22 @@ class DashBoardDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.inbox),
             title: Text('Inbox'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Quiz_Main()),
-                );
-              },
+              // onTap: () {
+              //   Navigator.push(
+              //     context,
+              //     MaterialPageRoute(builder: (context) => Quiz_Main()),
+              //   );
+              // },
           ),
           ListTile(
             leading: Icon(Icons.favorite),
             title: Text('Favourite'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Quiz_Main()),
-              );
-            },
+            // onTap: () {
+            //   Navigator.push(
+            //     context,
+            //     MaterialPageRoute(builder: (context) => Quiz_Main()),
+            //   );
+            // },
           ),
         ],
       ),
