@@ -6,9 +6,9 @@ import 'dashboard.dart';
 
 class SBChapterPage extends StatefulWidget {
 
-  final List<dynamic> CantoChapterName;
+  final List<String> CantoChapterName;
   final int cantonum;
-  final List<dynamic> versecount;
+  final List<int> versecount;
   SBChapterPage(this.CantoChapterName,this.cantonum,this.versecount);
 
   @override
@@ -16,9 +16,9 @@ class SBChapterPage extends StatefulWidget {
 }
 
 class _SBChapterPageState extends State<SBChapterPage> {
-  final List<dynamic> CantoChapterName;
+  final List<String> CantoChapterName;
   final int cantonum;
-  final List<dynamic> versecount;
+  final List<int> versecount;
   _SBChapterPageState(this.CantoChapterName,this.cantonum, this.versecount);
 
   // List<int> versecount = [23,34,44,33,40,38,58,52,49,36,39,36,60,44,51,36,45,50,40];
