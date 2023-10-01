@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hmbg/favourite_screen.dart';
 
 class DashBoardDrawer extends StatelessWidget {
   const DashBoardDrawer({Key? key}) : super(key: key);
@@ -10,8 +10,9 @@ class DashBoardDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          UserAccountsDrawerHeader(accountName: Text('Amrit'),
-            accountEmail: Text('testing'),
+          UserAccountsDrawerHeader(
+            accountName: Text('hs49271.rt@gmail.com'),
+            accountEmail: Text('+91-8542224372'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(child: Image.asset('asset/images/inspire_logo.png')),
             ),
@@ -21,8 +22,8 @@ class DashBoardDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.inbox),
-            title: Text('Inbox'),
+            leading: Icon(Icons.book),
+            title: Text('Buy Books'),
               // onTap: () {
               //   Navigator.push(
               //     context,
@@ -32,12 +33,16 @@ class DashBoardDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.favorite),
-            title: Text('Favourite'),
+            title: Text('Favourites'),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => FavouriteScreen()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.inbox),
+            title: Text('Donations'),
             // onTap: () {
-            //   Navigator.push(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => Quiz_Main()),
-            //   );
+            //   Navigator.push(context,MaterialPageRoute(builder: (context) => Quiz_Main()));
             // },
           ),
         ],

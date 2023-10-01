@@ -4,6 +4,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:hmbg/ShlokPage1_1.dart';
 import 'package:hmbg/models/favourite_model.dart';
 
+import 'SBShlokaPage.dart';
 import 'boxes/boxes.dart';
 import 'dashboard.dart';
 
@@ -34,8 +35,9 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
               shrinkWrap: true,
               itemBuilder: (context,index){
                 return InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ShlokPage1_1(data[index].chapterNum, data[index].shlokaNum)));
+                  onTap: (){data[index].book.toString()=="BG"?
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ShlokPage1_1(data[index].chapterNum, data[index].shlokaNum))):
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SBShlokaPage(data[index].cantoNum,data[index].chapterNum,data[index].shlokaNum)));
                   },
                   child: Card(
                     child: Padding(
@@ -46,18 +48,20 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                         children: [
                           Row(
                             children: [
-                              CircleAvatar(
-                                child: Image.network(data[index].image,
-                                fit: BoxFit.fill,),
-
+                              Container(
+                                child: Image.network(data[index].image,),
+                                height: 50,
+                                width: 50,
                               ),
                               SizedBox(
                                 width: 15,
                               ),
                               Column(
-                                children: [
-                                  Text(data[index].book.toString()+'. '+
+                                children:[
+                                  Text(data[index].book.toString()=="BG"?data[index].book.toString()+'. '+
                                       data[index].chapterNum.toString()+'.'+
+                                      data[index].shlokaNum.toString() : data[index].book.toString()+'. '+
+                                      data[index].cantoNum.toString()+'.'+ data[index].chapterNum.toString()+'.'+
                                       data[index].shlokaNum.toString(),
                                     style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
                                 ],

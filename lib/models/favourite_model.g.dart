@@ -18,23 +18,26 @@ class FavouriteModelAdapter extends TypeAdapter<FavouriteModel> {
     };
     return FavouriteModel(
       book: fields[0] as String,
-      chapterNum: fields[1] as int,
-      shlokaNum: fields[2] as int,
-      image: fields[3] as String,
+      cantoNum: fields[1] as int,
+      chapterNum: fields[2] as int,
+      shlokaNum: fields[3] as int,
+      image: fields[4] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, FavouriteModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.book)
       ..writeByte(1)
-      ..write(obj.chapterNum)
+      ..write(obj.cantoNum)
       ..writeByte(2)
-      ..write(obj.shlokaNum)
+      ..write(obj.chapterNum)
       ..writeByte(3)
+      ..write(obj.shlokaNum)
+      ..writeByte(4)
       ..write(obj.image);
   }
 
