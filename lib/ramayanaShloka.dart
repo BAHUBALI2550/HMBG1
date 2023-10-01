@@ -59,7 +59,8 @@ _RamayanaShlokaState(this.url);
                   return ListBody(
                        children: [
                          Padding(padding: const EdgeInsets.all(8.0),
-                            child: Text(article.titles!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w700),textAlign: TextAlign.justify,),
+                            child: Text(article.titles!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w700),textAlign: TextAlign.center
+                              ,),
                           ),
                         ],
                     );

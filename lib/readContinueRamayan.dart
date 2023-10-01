@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hmbg/ramayanaChapter.dart';
 import 'package:hmbg/ramayanaShloka.dart';
-import 'package:hmbg/readContinuationBg.dart';
-
-import 'Chapter _01verses.dart';
 import 'dashboard.dart';
 
 class ReadContinueRamayan extends StatefulWidget{
@@ -23,75 +20,82 @@ class ReadContinueState extends State<ReadContinueRamayan>{
       body: Stack(
           children: [
             dashboardContainer('asset/images/newdashboard.jpg'),
-            SingleChildScrollView(
-              child: Container(
-                margin: EdgeInsets.only(top: 290),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 11,
-                    ),
-                    InkWell(
-                        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaShloka("https://vedabase.io/en/library/rkd/prologue/")));},
-                        child: PartContainer(name: 'Prologue')),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    InkWell(
-                        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaChapterShow(1,Part1Chapter)));},
-                        child: PartContainer(name: 'Part One - Betrayed')),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    InkWell(
-                        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaChapterShow(2,Part2Chapter)));},
-                        child: PartContainer(name: 'Part Two')),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    InkWell(
-                        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaChapterShow(3,Part3Chapter)));},
-                        child: PartContainer(name: 'Part Three - War')),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    InkWell(
-                        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaShloka("https://vedabase.io/en/library/rkd/epilogue/")));},
-                        child: PartContainer(name: 'Epilogue')),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaShloka("https://vedabase.io/en/library/rkd/appendix-1-story-of-tiver-ganges/")));
-                        },
-                        child: PartAppendixContainer(name: 'Appendix 1: The Story of the River Ganges')),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    InkWell(
-                        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaShloka("https://vedabase.io/en/library/rkd/appendix-2-history-of-visvamitra/")));},
-                        child: PartAppendixContainer(name: 'Appendix 2: The History of Viśvāmitra')),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    InkWell(
-                        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaShloka("https://vedabase.io/en/library/rkd/appendix-3-birth-and-history-of-hanuman/")));},
-                        child: PartAppendixContainer(name: 'Appendix 3: The Birth and History of Hanumān')),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    InkWell(
-                        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaShloka("https://vedabase.io/en/library/rkd/appendix-4-benefits-of-reading-ramayana/")));},
-                        child: PartAppendixContainer(name: 'Appendix 4: The Benefits of Reading Rāmayana')),
-                    SizedBox(
-                      height: 8,
-                    ),
-                  ],
+            Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  child: Image.asset('asset/images/ramayana.jpeg'),
                 ),
-              ),
+                Expanded(
+                  child: Container(
+                      margin: EdgeInsets.only(top: 5),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            InkWell(
+                                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaShloka("https://vedabase.io/en/library/rkd/prologue/")));},
+                                child: PartContainer(name: 'Prologue')),
+                            SizedBox(
+                              height: 11,
+                            ),
+                            InkWell(
+                                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaChapterShow(1,Part1Chapter)));},
+                                child: PartContainer(name: 'Part One - Betrayed')),
+                            SizedBox(
+                              height: 11,
+                            ),
+                            InkWell(
+                                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaChapterShow(2,Part2Chapter)));},
+                                child: PartContainer(name: 'Part Two')),
+                            SizedBox(
+                              height: 11,
+                            ),
+                            InkWell(
+                                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaChapterShow(3,Part3Chapter)));},
+                                child: PartContainer(name: 'Part Three - War')),
+                            SizedBox(
+                              height: 11,
+                            ),
+                            InkWell(
+                                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaShloka("https://vedabase.io/en/library/rkd/epilogue/")));},
+                                child: PartContainer(name: 'Epilogue')),
+                            SizedBox(
+                              height: 11,
+                            ),
+                            InkWell(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaShloka("https://vedabase.io/en/library/rkd/appendix-1-story-of-tiver-ganges/")));
+                                },
+                                child: PartAppendixContainer(name: 'Appendix 1: The Story of the River Ganges')),
+                            SizedBox(
+                              height: 11,
+                            ),
+                            InkWell(
+                                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaShloka("https://vedabase.io/en/library/rkd/appendix-2-history-of-visvamitra/")));},
+                                child: PartAppendixContainer(name: 'Appendix 2: The History of Viśvāmitra')),
+                            SizedBox(
+                              height: 11,
+                            ),
+                            InkWell(
+                                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaShloka("https://vedabase.io/en/library/rkd/appendix-3-birth-and-history-of-hanuman/")));},
+                                child: PartAppendixContainer(name: 'Appendix 3: The Birth and History of Hanumān')),
+                            SizedBox(
+                              height: 11,
+                            ),
+                            InkWell(
+                                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaShloka("https://vedabase.io/en/library/rkd/appendix-4-benefits-of-reading-ramayana/")));},
+                                child: PartAppendixContainer(name: 'Appendix 4: The Benefits of Reading Rāmayana')),
+                            SizedBox(
+                              height: 8,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                ),
+              ],
             ),
-            Image.network('https://asianmoviepulse.com/wp-content/uploads/2023/01/lAWhe5ck.jpeg'),
+
             Container(
               margin: EdgeInsets.only(top: 255,left: 300),
               child: InkWell(
@@ -117,16 +121,17 @@ class PartContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-            alignment: Alignment.center,
-              width: double.infinity,
-              height: 70,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: Colors.black.withOpacity(0.7),
-              ),
-              child: Center(child: Text(name,
-                style: TextStyle(fontSize: 28,fontWeight: FontWeight.bold,color: Colors.white,),textAlign: TextAlign.center,)));
-
+              alignment: Alignment.center,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Colors.black.withOpacity(0.7),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Center(child: Text(name,
+                    style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white,),textAlign: TextAlign.center,)),
+                ));
   }
 }
 class PartAppendixContainer extends StatelessWidget {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hmbg/SBShlokaPage.dart';
 import 'dashboard.dart';
 
 class SBVerse_Show extends StatefulWidget{
@@ -57,7 +58,7 @@ class _SBVerse_ShowState extends State<SBVerse_Show> {
                   padding: const EdgeInsets.all(5.0),
                   child: GestureDetector(
                     onTap: (){
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => ShlokPage1_1(cnum,index+1)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SBShlokaPage(cantonum,cnum,index+1)));
                     },
                     child: Container(
                       height: double.infinity,

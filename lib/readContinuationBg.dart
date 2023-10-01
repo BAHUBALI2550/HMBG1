@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hmbg/Chapter%20_01verses.dart';
 import 'package:hmbg/dashboard.dart';
 
 class ReadContinueBg extends StatefulWidget{
+  const ReadContinueBg({super.key});
+
   @override
   State<ReadContinueBg> createState()  => ReadContinueState();
 
@@ -49,101 +50,108 @@ class ReadContinueState extends State<ReadContinueBg>{
       //
       // ),
       body: Stack(
-
           children: [
             dashboardContainer('asset/images/newdashboard.jpg'),
-            SingleChildScrollView(
-              child: Container(
-                margin: EdgeInsets.only(top: 290),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 22,
-                    ),
-                    ChapterContainer(1,47),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(2,72),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(3,43),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(4,42),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(5,29),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(6,47),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(7,30),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(8,28),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(9,34),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(10,42),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(11,55),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(12,20),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(13,35),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(14,27),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(15,20),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(16,24),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(17,28),
-                    SizedBox(
-                      height: 11,
-                    ),
-                    ChapterContainer(18,78),
-                    SizedBox(
-                      height: 2,
-                    ),
-                  ],
+            Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  child: Image.asset('asset/images/bhagavadgita-6.jpg'),
                 ),
-              ),
+                Expanded(
+                    child: Container(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 5,
+                            ),
+                            ChapterContainer(1,47),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(2,72),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(3,43),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(4,42),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(5,29),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(6,47),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(7,30),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(8,28),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(9,34),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(10,42),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(11,55),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(12,20),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(13,35),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(14,27),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(15,20),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(16,24),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(17,28),
+                            const SizedBox(
+                              height: 11,
+                            ),
+                            ChapterContainer(18,78),
+                            const SizedBox(
+                              height: 2,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
-            Image.network("https://i.pinimg.com/564x/9b/5c/1a/9b5c1a91b70ba925d9f849e157d1fdf7.jpg"),
             Container(
-              margin: EdgeInsets.only(top: 255,left: 300),
+              margin: const EdgeInsets.only(top: 255,left: 300),
               child: InkWell(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => Verse_Show(1,47)));
                 },
-                child: CircleAvatar(
+                child: const CircleAvatar(
                   backgroundImage: AssetImage('asset/images/playbutton1.jpg'),
                   radius: 40,
 
@@ -159,7 +167,7 @@ class ReadContinueState extends State<ReadContinueBg>{
 class ChapterContainer extends StatelessWidget{
   final int ind;
   final int verse_count;
-ChapterContainer(this.ind,this.verse_count);
+ChapterContainer(this.ind,this.verse_count, {super.key});
   @override
   Widget build(BuildContext context) {
     return
@@ -175,7 +183,7 @@ ChapterContainer(this.ind,this.verse_count);
                 color: Colors.black.withOpacity(0.7),
               ),
               child: Center(child: Text('Chapter : $ind',
-                style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white),)))
+                style: const TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white),)))
       );
   }
 

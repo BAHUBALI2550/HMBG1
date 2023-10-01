@@ -5,17 +5,14 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hmbg/DashBoarddrawer.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hmbg/blankPage.dart';
 import 'package:hmbg/favourite_screen.dart';
-
 import 'package:hmbg/readContinuationBg.dart';
 import 'package:hmbg/readContinuationBhagvatam.dart';
 import 'package:hmbg/readContinuationKrsna.dart';
 import 'package:hmbg/readContinueRamayan.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 
 
@@ -84,7 +81,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 //       ),
 //       body: Stack(
 //         children: [
-//           dashboardContainer('asset/images/dashboard.jpg'),
+//           dashboardContainer('asset/images/'),
 //           SingleChildScrollView(
 //             child: Column(
 //               crossAxisAlignment: CrossAxisAlignment.center,
@@ -112,16 +109,16 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 //                 SizedBox(
 //                   height: 11,
 //                 ),
-//                 dashBoardImage("asset/images/ramayan1.jpg", "RAMAYANA",200.0,178.0),
+//                 dashBoardImage("asset/images/", "RAMAYANA",200.0,178.0),
 //                 SizedBox(
 //                   height: 11,
 //                 ),
 //
-//                 dashBoardImage("asset/images/mahabharat.jpg", "MAHABHARAT",500.0,128.0),
+//                 dashBoardImage("asset/images", "MAHABHARAT",500.0,128.0),
 //                 SizedBox(
 //                   height: 11,
 //                 ),
-//                 dashBoardImage("asset/images/vishnupuran.jpg", "VISHNUPURAN",500.0,124.0),
+//                 dashBoardImage("asset/images", "VISHNUPURAN",500.0,124.0),
 //               ],
 //             ),
 //           ),
@@ -263,17 +260,17 @@ class _DashBoardState extends State<DashBoard> {
   // );
 
   List<String> images = [
-    "https://i.pinimg.com/564x/9b/5c/1a/9b5c1a91b70ba925d9f849e157d1fdf7.jpg",
-    "https://asianmoviepulse.com/wp-content/uploads/2023/01/lAWhe5ck.jpeg",
-    "https://i.pinimg.com/736x/d1/72/ad/d172ad7ba835c66859ecdd0d50f0e47c.jpg",
-    "https://www.bvashram.org/wp-content/uploads/2005/11/bhagavatam-01.jpg",
+    "asset/images/bhagavadgita-6.jpg",
+    "asset/images/ramayana.jpeg",
+    "asset/images/krshna.jpg",
+    "asset/images/bhagavatam-01.jpg",
   ];
   
   List<String> BookCover = [
-    "https://vedabase.io/media/images/en-bg_34MulJK.2e16d0ba.fill-160x254.jpg",
-    "https://vedabase.io/media/images/en-rkd.2e16d0ba.fill-160x254.jpg",
-    "https://vedabase.io/media/images/en-kb_h1BPd0D.2e16d0ba.fill-160x254.jpg",
-    "https://vedabase.io/media/images/en-sb7_Qj96zoT.2e16d0ba.fill-240x380.jpg",
+    "asset/images/bgbookcover.jpg",
+    "asset/images/ramayanbookcover.jpg",
+    "asset/images/krshnabookcover.jpg",
+    "asset/images/sbbookcover.jpg",
   ];
   List<String> BookName = ["Bhagavad Gita","Ramayana","Krsna","Srimad Bhagvatama"];
   List<dynamic> BookAddress = [ReadContinueBg(),ReadContinueRamayan(),KrsnaPage(),ReadBhagvatam()];
@@ -378,10 +375,7 @@ class _DashBoardState extends State<DashBoard> {
                                         onTap: () {
                                           // todo -> navigate to someplace
                                         },
-                                        child: CachedNetworkImage(
-                                          imageUrl: deal,
-                                          fit: BoxFit.cover,
-                                        ),
+                                        child: Image.asset(deal,fit: BoxFit.cover,),
                                       ))
                                           .toList(),
                                       carouselController: _controller,
@@ -474,8 +468,8 @@ class _DashBoardState extends State<DashBoard> {
   }
 }
 class dashboardContainer extends StatelessWidget{
-  String image="";
-  dashboardContainer(this.image);
+  final String image;
+  const dashboardContainer(this.image, {super.key});
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -496,7 +490,7 @@ class BookCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(child: Image.network(url)),
+        Expanded(child: Image.asset(url)),
         SizedBox(
           height: 10,
         ),

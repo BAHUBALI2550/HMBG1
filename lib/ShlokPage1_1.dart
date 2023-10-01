@@ -1,28 +1,21 @@
-
+import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:hmbg/boxes/boxes.dart';
 import 'package:hmbg/models/favourite_model.dart';
-
 import 'dashboard.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
-
-
 
 class ShlokPage1_1 extends StatefulWidget{
   final int cnum;
   final int verse_num;
   ShlokPage1_1(this.cnum,this.verse_num);
   State<ShlokPage1_1> createState() => ShlokPage1_1State(cnum,verse_num);
-
 }
 class ShlokPage1_1State extends State<ShlokPage1_1>{
-
-
-
   final int cnum;
   final int verse_num;
   ShlokPage1_1State(this.cnum,this.verse_num);
@@ -30,7 +23,7 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
   bool isPlaying = false;
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
-
+ late   bool onclick= false;
   List<Article> articles=[];
   String? extractData(String input, String startWord, String endWord) {
     final startIndex = input.indexOf(startWord);
@@ -413,43 +406,43 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
         appBar: AppBar(
           title: Text('HMBG'),
         ),
-        bottomNavigationBar: NavigationBar(
-          height: 60,
-          backgroundColor: Colors.orangeAccent,
-          elevation: 1.0,
-          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-          selectedIndex: index,
-          onDestinationSelected: (index) => setState(() => this.index = index),
-          destinations: [
-            NavigationBarTheme(
-                data: NavigationBarThemeData(
-                    indicatorColor: Colors.red.shade100,
-                    labelTextStyle: MaterialStateProperty.all(
-                        TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
-                    )
-                ),
-                child:const NavigationDestination(icon: Icon(Icons.account_circle_outlined,size: 40,), label: 'Profile',selectedIcon: Icon(Icons.account_circle),)),
-            NavigationBarTheme(
-                data: NavigationBarThemeData(
-                    indicatorColor: Colors.red.shade100,
-                    labelTextStyle: MaterialStateProperty.all(
-                        TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
-                    )
-                ),
-                child:const NavigationDestination(icon: Icon(Icons.home_outlined,size: 40,), label: 'Search',selectedIcon: Icon(Icons.home),)),
-            NavigationBarTheme(
-                data: NavigationBarThemeData(
-                    indicatorColor: Colors.red.shade100,
-                    labelTextStyle: MaterialStateProperty.all(
-                        TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
-                    )
-                ),
-                child:const NavigationDestination(icon: Icon(Icons.favorite_border,size: 40,), label: 'Favourite',selectedIcon: Icon(Icons.favorite),)),
-          ],
-        ),
+        // bottomNavigationBar: NavigationBar(
+        //   height: 60,
+        //   backgroundColor: Colors.orangeAccent,
+        //   elevation: 1.0,
+        //   labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        //   selectedIndex: index,
+        //   onDestinationSelected: (index) => setState(() => this.index = index),
+        //   destinations: [
+        //     NavigationBarTheme(
+        //         data: NavigationBarThemeData(
+        //             indicatorColor: Colors.red.shade100,
+        //             labelTextStyle: MaterialStateProperty.all(
+        //                 TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
+        //             )
+        //         ),
+        //         child:const NavigationDestination(icon: Icon(Icons.account_circle_outlined,size: 40,), label: 'Profile',selectedIcon: Icon(Icons.account_circle),)),
+        //     NavigationBarTheme(
+        //         data: NavigationBarThemeData(
+        //             indicatorColor: Colors.red.shade100,
+        //             labelTextStyle: MaterialStateProperty.all(
+        //                 TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
+        //             )
+        //         ),
+        //         child:const NavigationDestination(icon: Icon(Icons.home_outlined,size: 40,), label: 'Search',selectedIcon: Icon(Icons.home),)),
+        //     NavigationBarTheme(
+        //         data: NavigationBarThemeData(
+        //             indicatorColor: Colors.red.shade100,
+        //             labelTextStyle: MaterialStateProperty.all(
+        //                 TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
+        //             )
+        //         ),
+        //         child:const NavigationDestination(icon: Icon(Icons.favorite_border,size: 40,), label: 'Favourite',selectedIcon: Icon(Icons.favorite),)),
+        //   ],
+        // ),
         body: Stack(
           children: [
-            dashboardContainer('asset/images/newdashboard.jpg'),
+            dashboardContainer('asset/images/newbackground4.png'),
             ListView.builder(itemCount:articles.length > 1 ? 1:articles.length,itemBuilder: (context,index){
               final article=articles[index];
               return ListBody(
@@ -460,30 +453,30 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Text(article.titles!,textAlign: TextAlign.center
-                      ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                      ,style: TextStyle(fontWeight: FontWeight.w700,fontSize: 25),),
                   ),
 
                   SizedBox(
                     height: 10,
                   ),
-                  Text("Devanagri",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
+                  Text("Devanagri",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
                   SizedBox(
                     height: 10,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text(article.devnagri!,textAlign: TextAlign.center,style: TextStyle(fontWeight:FontWeight.w400,fontSize: 20)),
+                    child: Text(article.devnagri!,textAlign: TextAlign.center,style: TextStyle(fontWeight:FontWeight.w600,fontSize: 20)),
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  Text("Text",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  // Text("Text",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
+                  // SizedBox(
+                  //   height: 10,
+                  // ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text(article.verse_text!,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 20)),
+                    child: Text(article.verse_text!,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20)),
                   ),
                   Container(
                     alignment: Alignment.center,
@@ -491,6 +484,7 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
                     CircleAvatar(
                       radius: 35,
                       child: IconButton(
+
                         icon: Icon(
                           isPlaying ? Icons.pause : Icons.play_arrow,
                         ),
@@ -508,53 +502,64 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
                   SizedBox(
                     height: 10,
                   ),
-                  Text("Synonyms",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
+                  Text("Synonyms",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
                   SizedBox(
                     height: 10,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text(article.translation_title!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
+                    child: Text(article.translation_title!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20)),
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  Text("Translation",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text(article.translation!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text("Purport",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
+                  Text("Translation",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
                   SizedBox(
                     height: 10,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text(article.purpot!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
+                    child: Text(article.translation!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20)),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text("Purport",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(article.purpot!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20)),
                   ),
                 ],
               );
 
             }),
-            Container(
-              alignment: Alignment.topRight,
-              child: InkWell(
-                onTap: (){
-                      final data = FavouriteModel(book: 'BG', chapterNum: cnum, shlokaNum: verse_num,image: 'https://w0.peakpx.com/wallpaper/485/512/HD-wallpaper-lord-krishna-for-drawing-lord-krishna-for-lord-krishna-art.jpg');
-                      final box = Boxes.getData();
-                      box.add(data);
-                      // data.save();
-                      print(box);
-                },
-                child: CircleAvatar(
-                  radius: 25,
-                  child: Icon(Icons.favorite_outline,size: 45,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                alignment: Alignment.topRight,
+                child: InkWell(
+                  onTap: (){
+                        final data = FavouriteModel(book: 'BG', cantoNum: 1,chapterNum: cnum, shlokaNum: verse_num,image: 'https://vedabase.io/media/images/en-bg_34MulJK.2e16d0ba.fill-160x254.jpg',);
+                        final box = Boxes.getData();
+                        box.add(data);
+                        // data.save();
+                        print(box);
+                        setState(() {
+                          if(onclick==false)
+                          onclick=true;
+                          else{
+                            onclick=false;
+                          }
+                        });
+
+                  },
+                  child: CircleAvatar(
+                    radius: 25,
+                    child: Icon(onclick==true ?Icons.favorite_sharp:Icons.favorite_outline,size: 35,),
+                  ),
                 ),
               ),
             ),
