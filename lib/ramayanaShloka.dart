@@ -12,10 +12,11 @@ class RamayanaShloka extends StatefulWidget {
   State<RamayanaShloka> createState() => _RamayanaShlokaState(url);
 }
 
-class _RamayanaShlokaState extends State<RamayanaShloka> {
+class _RamayanaShlokaState extends State<RamayanaShloka> with TickerProviderStateMixin{
 
 final String url;
 _RamayanaShlokaState(this.url);
+late AnimationController controller;
   List<Article> articles = [];
 
   Future getWebsiteDataAppendx(String Url) async {
@@ -27,6 +28,7 @@ _RamayanaShlokaState(this.url);
         .map((e) => e.text)
         .map((e) => e.replaceAll('<br>', '\n'))
         .toString();
+    text = ttle;
     setState(() {
       articles=List.generate(ttle.length,
       (index) => Article(
@@ -40,10 +42,21 @@ _RamayanaShlokaState(this.url);
     // TODO: implement initState
     super.initState();
     getWebsiteDataAppendx(url);
+    controller = AnimationController(
+      /// [AnimationController]s can be created with `vsync: this` because of
+      /// [TickerProviderStateMixin].
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..addListener(() {
+      setState(() {});
+    });
+    controller.repeat(reverse: true);
   }
   void dispose() {
     // TODO: implement dispose
+    controller.dispose();
     super.dispose();}
+String text = "";
     @override
     Widget build(BuildContext context) {
       return Scaffold(
@@ -54,6 +67,26 @@ _RamayanaShlokaState(this.url);
           body:Stack(
             children: [
               dashboardContainer('asset/images/newbackground5.png'),
+              text == ""?
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Loading ...',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 30),
+                      CircularProgressIndicator(
+                        value: controller.value,
+                        semanticsLabel: 'Circular progress indicator',
+                      ),
+                    ],
+                  ),
+                ),
+              ):
               ListView.builder(itemCount:articles.length > 1 ? 1:articles.length,itemBuilder: (context,index){
                 final article=articles[index];
                   return ListBody(

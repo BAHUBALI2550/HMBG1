@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -15,10 +13,13 @@ class ShlokPage1_1 extends StatefulWidget{
   ShlokPage1_1(this.cnum,this.verse_num);
   State<ShlokPage1_1> createState() => ShlokPage1_1State(cnum,verse_num);
 }
-class ShlokPage1_1State extends State<ShlokPage1_1>{
+class ShlokPage1_1State extends State<ShlokPage1_1> with TickerProviderStateMixin {
   final int cnum;
   final int verse_num;
   ShlokPage1_1State(this.cnum,this.verse_num);
+
+  late AnimationController controller;
+
   final audioPlayer = AudioPlayer();
   bool isPlaying = false;
   Duration duration = Duration.zero;
@@ -364,8 +365,7 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
     }else{
       Translation = extractData(ttle, "Translation", " Purport");
     }
-
-    print(title);
+    text = ttle;
     setState(() {
       articles=List.generate(ttle.length,
               (index) => Article(
@@ -383,7 +383,15 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
     // TODO: implement initState
     super.initState();
     getWebsiteData(cnum,verse_num);
-    print("$cnum,$verse_num");
+    controller = AnimationController(
+      /// [AnimationController]s can be created with `vsync: this` because of
+      /// [TickerProviderStateMixin].
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..addListener(() {
+      setState(() {});
+    });
+    controller.repeat(reverse: true);
     audioPlayer.onPlayerStateChanged.listen((state) {
       setState(() {
         isPlaying = state == PlayerState.playing;
@@ -394,10 +402,12 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
   void dispose() {
     // TODO: implement dispose
     audioPlayer.dispose();
+    controller.dispose();
     super.dispose();
   }
 
   String Finalurl="";
+  String text = "";
 
   @override
   int index = 0;
@@ -409,6 +419,26 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
         body: Stack(
           children: [
             dashboardContainer('asset/images/newbackground4.png'),
+            text == ""?
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Loading ...',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 30),
+                    CircularProgressIndicator(
+                      value: controller.value,
+                      semanticsLabel: 'Circular progress indicator',
+                    ),
+                  ],
+                ),
+              ),
+            ):
             ListView.builder(itemCount:articles.length > 1 ? 1:articles.length,itemBuilder: (context,index){
               final article=articles[index];
               return ListBody(
