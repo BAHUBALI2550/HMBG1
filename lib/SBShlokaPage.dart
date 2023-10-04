@@ -2475,7 +2475,7 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(article.devnagri!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),textAlign: TextAlign.center,),
+                child: Text(article.devnagri!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600,fontFamily: 'Lora'),textAlign: TextAlign.center,),
               ),
               SizedBox(
                 height: 10,
@@ -2486,7 +2486,7 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(article.verse_text!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),textAlign: TextAlign.center,),
+                child: Text(article.verse_text!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600,fontFamily: 'Lora'),textAlign: TextAlign.center,),
               ),
               SizedBox(
                 height: 10,
@@ -2497,7 +2497,7 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Text(article.translation_title!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500),textAlign: TextAlign.justify,),
+                child: Text(article.translation_title!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500,fontFamily: 'Lora'),textAlign: TextAlign.justify,),
               ),
               SizedBox(
                 height: 10,
@@ -2508,7 +2508,7 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Text(article.translation!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500),textAlign: TextAlign.justify,),
+                child: Text(article.translation!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500,fontFamily: 'Lora'),textAlign: TextAlign.justify,),
               ),
               SizedBox(
                 height: 10,
@@ -2516,7 +2516,7 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
               Text("Purport",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Text(article.purpot!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500),textAlign: TextAlign.justify,),
+                child: Text(article.purpot!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500,fontFamily: 'Lora'),textAlign: TextAlign.justify,),
               ),
             ],
           );

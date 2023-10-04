@@ -373,7 +373,7 @@ class _DashBoardState extends State<DashBoard> {
                                       items: images
                                           .map((deal) => GestureDetector(
                                         onTap: () {
-                                          // todo -> navigate to someplace
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => BookAddress[_current]));
                                         },
                                         child: Image.asset(deal,fit: BoxFit.cover,),
                                       ))

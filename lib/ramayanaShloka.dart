@@ -53,13 +53,13 @@ _RamayanaShlokaState(this.url);
           ),
           body:Stack(
             children: [
-              dashboardContainer('asset/images/newdashboard.jpg'),
+              dashboardContainer('asset/images/newbackground5.png'),
               ListView.builder(itemCount:articles.length > 1 ? 1:articles.length,itemBuilder: (context,index){
                 final article=articles[index];
                   return ListBody(
                        children: [
                          Padding(padding: const EdgeInsets.all(8.0),
-                            child: Text(article.titles!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w700),textAlign: TextAlign.center
+                            child: Text(article.titles!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w700,fontFamily: 'Lora'),textAlign: TextAlign.center
                               ,),
                           ),
                         ],
