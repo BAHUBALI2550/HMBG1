@@ -14,11 +14,12 @@ class SBShlokaPage extends StatefulWidget {
   @override
   State<SBShlokaPage> createState() => _SBShlokaPageState(cantonum,cnum,verse_num);
 }
-class _SBShlokaPageState extends State<SBShlokaPage> {
+class _SBShlokaPageState extends State<SBShlokaPage> with TickerProviderStateMixin{
   final int cantonum;
   final int cnum;
   final int verse_num;
   _SBShlokaPageState(this.cantonum,this.cnum,this.verse_num);
+  late AnimationController controller;
   late   bool onclick= false;
   List<Article> articles=[];
   String? extractData(String input, String startWord, String endWord) {
@@ -2418,7 +2419,7 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
     else{
       Translation = extractData(ttle, "Translation", " Purport");
     }
-    print(ttle);
+    text = ttle;
     setState(() {
       articles=List.generate(ttle.length,
               (index) => Article(
@@ -2439,14 +2440,22 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
     // TODO: implement initState
     super.initState();
     getWebsiteData(cantonum,cnum,verse_num);
+    controller = AnimationController(
+      /// [AnimationController]s can be created with `vsync: this` because of
+      /// [TickerProviderStateMixin].
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..addListener(() {
+      setState(() {});
+    });
+    controller.repeat(reverse: true);
   }
   void dispose() {
     // TODO: implement dispose
+    controller.dispose();
     super.dispose();}
   String Finalurl="";
-  @override
-
-
+  String text = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -2458,6 +2467,26 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
       body:Stack(
         children: [
           dashboardContainer('asset/images/newbackground5.png'),
+          text == ""?
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Loading ...',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 30),
+                  CircularProgressIndicator(
+                    value: controller.value,
+                    semanticsLabel: 'Circular progress indicator',
+                  ),
+                ],
+              ),
+            ),
+          ):
           ListView.builder(itemCount:articles.length>1?1:articles.length,itemBuilder: (context,index){
           final article=articles[index];
           return ListBody(
@@ -2475,7 +2504,7 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(article.devnagri!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),textAlign: TextAlign.center,),
+                child: Text(article.devnagri!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600,fontFamily: 'Lora'),textAlign: TextAlign.center,),
               ),
               SizedBox(
                 height: 10,
@@ -2486,7 +2515,7 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(article.verse_text!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600),textAlign: TextAlign.center,),
+                child: Text(article.verse_text!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600,fontFamily: 'Lora'),textAlign: TextAlign.center,),
               ),
               SizedBox(
                 height: 10,
@@ -2497,7 +2526,7 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Text(article.translation_title!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500),textAlign: TextAlign.justify,),
+                child: Text(article.translation_title!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500,fontFamily: 'Lora'),textAlign: TextAlign.justify,),
               ),
               SizedBox(
                 height: 10,
@@ -2508,7 +2537,7 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Text(article.translation!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500),textAlign: TextAlign.justify,),
+                child: Text(article.translation!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500,fontFamily: 'Lora'),textAlign: TextAlign.justify,),
               ),
               SizedBox(
                 height: 10,
@@ -2516,11 +2545,10 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
               Text("Purport",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Text(article.purpot!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500),textAlign: TextAlign.justify,),
+                child: Text(article.purpot!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500,fontFamily: 'Lora'),textAlign: TextAlign.justify,),
               ),
             ],
           );
-
         }),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -2531,7 +2559,6 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
                   final data = FavouriteModel(book: 'SB', cantoNum: cantonum,chapterNum: cnum, shlokaNum: verse_num,image: 'https://vedabase.io/media/images/es-sb-1.2e16d0ba.fill-240x380.jpg',);
                   final box = Boxes.getData();
                   box.add(data);
-                  // data.save();
                   print(box);
                   setState(() {
                     if(onclick==false)
@@ -2540,7 +2567,6 @@ class _SBShlokaPageState extends State<SBShlokaPage> {
                       onclick=false;
                     }
                   });
-
                 },
                 child: CircleAvatar(
                   radius: 25,
@@ -2562,7 +2588,6 @@ class Article {
   late final String? verse_text;
   late final String? translation_title;
   late final String? translation;
-  // late final String? purput_tile;
   late final String? purpot;
   Article({
     required this.titles,
@@ -2570,7 +2595,6 @@ class Article {
     required this.verse_text,
     required this.translation_title,
     required this.translation,
-    // required this.purput_tile,
     required this.purpot,
   });
 }

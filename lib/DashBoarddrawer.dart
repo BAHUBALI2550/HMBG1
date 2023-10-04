@@ -1,8 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:hmbg/favourite_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class DashBoardDrawer extends StatelessWidget {
+class DashBoardDrawer extends StatefulWidget {
   const DashBoardDrawer({Key? key}) : super(key: key);
+
+  @override
+  State<DashBoardDrawer> createState() => _DashBoardDrawerState();
+}
+
+class _DashBoardDrawerState extends State<DashBoardDrawer> {
+  Future<void> _launchURL(String url,String path) async{
+    final Uri uri = Uri.https(url,path);
+    if(!await launchUrl(
+      uri,
+      mode: LaunchMode.externalApplication,
+    )){
+      throw "Cannot launch url";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +27,10 @@ class DashBoardDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('hs49271.rt@gmail.com'),
-            accountEmail: Text('+91-8542224372'),
+            accountName: Text('hs49271.rt@gmail.com',style: TextStyle(color: Colors.white),),
+            accountEmail: Text('+91-8542224372',style: TextStyle(color: Colors.white),),
             currentAccountPicture: CircleAvatar(
-              child: ClipOval(child: Image.asset('asset/images/inspire_logo.png')),
+              child: ClipOval(child: Image.asset('asset/images/inspire_logo.png'),),
             ),
             decoration: BoxDecoration(
               color: Colors.orange,
@@ -24,12 +40,9 @@ class DashBoardDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.book),
             title: Text('Buy Books'),
-              // onTap: () {
-              //   Navigator.push(
-              //     context,
-              //     MaterialPageRoute(builder: (context) => Quiz_Main()),
-              //   );
-              // },
+              onTap: () {
+              _launchURL('vedabase.io','/en/library/sb/');
+              },
           ),
           ListTile(
             leading: Icon(Icons.favorite),
@@ -41,9 +54,9 @@ class DashBoardDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.inbox),
             title: Text('Donations'),
-            // onTap: () {
-            //   Navigator.push(context,MaterialPageRoute(builder: (context) => Quiz_Main()));
-            // },
+            onTap: () {
+                _launchURL('vedabase.io','/en/donate/');
+            },
           ),
         ],
       ),

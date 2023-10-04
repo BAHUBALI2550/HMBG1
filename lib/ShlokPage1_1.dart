@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -15,10 +13,13 @@ class ShlokPage1_1 extends StatefulWidget{
   ShlokPage1_1(this.cnum,this.verse_num);
   State<ShlokPage1_1> createState() => ShlokPage1_1State(cnum,verse_num);
 }
-class ShlokPage1_1State extends State<ShlokPage1_1>{
+class ShlokPage1_1State extends State<ShlokPage1_1> with TickerProviderStateMixin {
   final int cnum;
   final int verse_num;
   ShlokPage1_1State(this.cnum,this.verse_num);
+
+  late AnimationController controller;
+
   final audioPlayer = AudioPlayer();
   bool isPlaying = false;
   Duration duration = Duration.zero;
@@ -364,8 +365,7 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
     }else{
       Translation = extractData(ttle, "Translation", " Purport");
     }
-
-    print(title);
+    text = ttle;
     setState(() {
       articles=List.generate(ttle.length,
               (index) => Article(
@@ -383,7 +383,15 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
     // TODO: implement initState
     super.initState();
     getWebsiteData(cnum,verse_num);
-    print("$cnum,$verse_num");
+    controller = AnimationController(
+      /// [AnimationController]s can be created with `vsync: this` because of
+      /// [TickerProviderStateMixin].
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..addListener(() {
+      setState(() {});
+    });
+    controller.repeat(reverse: true);
     audioPlayer.onPlayerStateChanged.listen((state) {
       setState(() {
         isPlaying = state == PlayerState.playing;
@@ -394,10 +402,12 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
   void dispose() {
     // TODO: implement dispose
     audioPlayer.dispose();
+    controller.dispose();
     super.dispose();
   }
 
   String Finalurl="";
+  String text = "";
 
   @override
   int index = 0;
@@ -406,43 +416,29 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
         appBar: AppBar(
           title: Text('HMBG'),
         ),
-        // bottomNavigationBar: NavigationBar(
-        //   height: 60,
-        //   backgroundColor: Colors.orangeAccent,
-        //   elevation: 1.0,
-        //   labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        //   selectedIndex: index,
-        //   onDestinationSelected: (index) => setState(() => this.index = index),
-        //   destinations: [
-        //     NavigationBarTheme(
-        //         data: NavigationBarThemeData(
-        //             indicatorColor: Colors.red.shade100,
-        //             labelTextStyle: MaterialStateProperty.all(
-        //                 TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
-        //             )
-        //         ),
-        //         child:const NavigationDestination(icon: Icon(Icons.account_circle_outlined,size: 40,), label: 'Profile',selectedIcon: Icon(Icons.account_circle),)),
-        //     NavigationBarTheme(
-        //         data: NavigationBarThemeData(
-        //             indicatorColor: Colors.red.shade100,
-        //             labelTextStyle: MaterialStateProperty.all(
-        //                 TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
-        //             )
-        //         ),
-        //         child:const NavigationDestination(icon: Icon(Icons.home_outlined,size: 40,), label: 'Search',selectedIcon: Icon(Icons.home),)),
-        //     NavigationBarTheme(
-        //         data: NavigationBarThemeData(
-        //             indicatorColor: Colors.red.shade100,
-        //             labelTextStyle: MaterialStateProperty.all(
-        //                 TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
-        //             )
-        //         ),
-        //         child:const NavigationDestination(icon: Icon(Icons.favorite_border,size: 40,), label: 'Favourite',selectedIcon: Icon(Icons.favorite),)),
-        //   ],
-        // ),
         body: Stack(
           children: [
             dashboardContainer('asset/images/newbackground4.png'),
+            text == ""?
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Loading ...',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 30),
+                    CircularProgressIndicator(
+                      value: controller.value,
+                      semanticsLabel: 'Circular progress indicator',
+                    ),
+                  ],
+                ),
+              ),
+            ):
             ListView.builder(itemCount:articles.length > 1 ? 1:articles.length,itemBuilder: (context,index){
               final article=articles[index];
               return ListBody(
@@ -465,18 +461,14 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
                   ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text(article.devnagri!,textAlign: TextAlign.center,style: TextStyle(fontWeight:FontWeight.w600,fontSize: 20)),
+                    child: Text(article.devnagri!,textAlign: TextAlign.center,style: TextStyle(fontWeight:FontWeight.w600,fontSize: 20,fontFamily: 'Lora')),
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  // Text("Text",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
-                  // SizedBox(
-                  //   height: 10,
-                  // ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text(article.verse_text!,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20)),
+                    child: Text(article.verse_text!,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20,fontFamily: 'Lora')),
                   ),
                   Container(
                     alignment: Alignment.center,
@@ -508,7 +500,7 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
                   ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text(article.translation_title!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20)),
+                    child: Text(article.translation_title!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20,fontFamily: 'Lora')),
                   ),
                   SizedBox(
                     height: 10,
@@ -519,7 +511,7 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
                   ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text(article.translation!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20)),
+                    child: Text(article.translation!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20,fontFamily: 'Lora')),
                   ),
                   SizedBox(
                     height: 10,
@@ -530,7 +522,7 @@ class ShlokPage1_1State extends State<ShlokPage1_1>{
                   ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text(article.purpot!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20)),
+                    child: Text(article.purpot!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20,fontFamily: 'Lora')),
                   ),
                 ],
               );
