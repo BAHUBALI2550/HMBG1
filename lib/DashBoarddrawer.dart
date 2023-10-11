@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hmbg/about_us.dart';
 import 'package:hmbg/favourite_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -27,10 +28,10 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('hs49271.rt@gmail.com',style: TextStyle(color: Colors.white),),
-            accountEmail: Text('+91-8542224372',style: TextStyle(color: Colors.white),),
+            accountName: Text('Welcome Devotee!!',style: TextStyle(fontSize: 25,color: Colors.white),),
+            accountEmail: Text('',style: TextStyle(color: Colors.white),),
             currentAccountPicture: CircleAvatar(
-              child: ClipOval(child: Image.asset('asset/images/inspire_logo.png'),),
+              child: ClipOval(child: Image.asset('asset/images/Applogo1.png',fit: BoxFit.contain),),
             ),
             decoration: BoxDecoration(
               color: Colors.orange,
@@ -41,7 +42,7 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
             leading: Icon(Icons.book),
             title: Text('Buy Books'),
               onTap: () {
-              _launchURL('vedabase.io','/en/library/sb/');
+              _launchURL('iskconbooks.com','');
               },
           ),
           ListTile(
@@ -56,6 +57,13 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
             title: Text('Donations'),
             onTap: () {
                 _launchURL('vedabase.io','/en/donate/');
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.info_outline),
+            title: Text('About Us'),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => About_Us()));
             },
           ),
         ],

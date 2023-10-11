@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 
 import 'dashboard.dart';
+import 'favourite_screen.dart';
 
 class RamayanaShloka extends StatefulWidget {
   final String url;
@@ -61,8 +62,19 @@ String text = "";
     Widget build(BuildContext context) {
       return Scaffold(
           appBar: AppBar(
-
-            title: Text("HMBG"),
+              centerTitle: true,
+              title: Text('VedicGranth',style: TextStyle(fontFamily: 'Samarkan',fontWeight: FontWeight.bold),),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FavouriteScreen()));
+                },
+                icon: const Icon(Icons.favorite),
+              ),
+            ]
           ),
           body:Stack(
             children: [
@@ -79,9 +91,14 @@ String text = "";
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(height: 30),
-                      CircularProgressIndicator(
-                        value: controller.value,
-                        semanticsLabel: 'Circular progress indicator',
+                      SizedBox(
+                        child: CircularProgressIndicator(
+                          value: controller.value,
+                          color: Colors.grey,
+                          semanticsLabel: 'Circular progress indicator',
+                        ),
+                        height: 70.0,
+                        width: 70.0,
                       ),
                     ],
                   ),
@@ -92,7 +109,7 @@ String text = "";
                   return ListBody(
                        children: [
                          Padding(padding: const EdgeInsets.all(8.0),
-                            child: Text(article.titles!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w700,fontFamily: 'Lora'),textAlign: TextAlign.center
+                            child: Text(article.titles!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold,fontFamily: 'Lora'),textAlign: TextAlign.justify
                               ,),
                           ),
                         ],

@@ -14,193 +14,6 @@ import 'package:hmbg/readContinuationBhagvatam.dart';
 import 'package:hmbg/readContinuationKrsna.dart';
 import 'package:hmbg/readContinueRamayan.dart';
 
-
-
-
-// class DashBoard extends StatefulWidget{
-//   var nam="";
-//   DashBoard(this.nam);
-//   @override
-//   State<DashBoard> createState() => DashBoardPage(nam);
-//
-// }
-// class DashBoardPage extends State<DashBoard>{
-//   var name="";
-//   DashBoardPage(this.name);
-//   int index = 0;
-//   @override
-//   Widget build(BuildContext context) {
-//
-//     return Scaffold(
-//       bottomNavigationBar: NavigationBar(
-//         height: 60,
-//         backgroundColor: Colors.orangeAccent.shade200,
-//         elevation: 1.0,
-//         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-//         selectedIndex: index,
-//         onDestinationSelected: (index) => setState(() => this.index = index),
-//         destinations: [
-//           NavigationBarTheme(
-//               data: NavigationBarThemeData(
-//                   indicatorColor: Colors.red.shade100,
-//                   labelTextStyle: MaterialStateProperty.all(
-//                       TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
-//                   )
-//               ),
-//               child:const NavigationDestination(icon: Icon(Icons.home_outlined,size: 40,), label: 'Favourite',selectedIcon: Icon(Icons.home),)),
-//           NavigationBarTheme(
-//               data: NavigationBarThemeData(
-//                   indicatorColor: Colors.red.shade100,
-//                   labelTextStyle: MaterialStateProperty.all(
-//                       TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
-//                   )
-//               ),
-//               child:const NavigationDestination(icon: Icon(Icons.account_circle_outlined,size: 40,), label: 'Profile',selectedIcon: Icon(Icons.account_circle),)),
-//           NavigationBarTheme(
-//               data: NavigationBarThemeData(
-//                   indicatorColor: Colors.red.shade100,
-//                   labelTextStyle: MaterialStateProperty.all(
-//                       TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
-//                   )
-//               ),
-//               child:const NavigationDestination(icon: Icon(Icons.search_sharp,size: 40,), label: 'Search',selectedIcon: Icon(Icons.search_rounded),)),
-//           NavigationBarTheme(
-//               data: NavigationBarThemeData(
-//                   indicatorColor: Colors.red.shade100,
-//                   labelTextStyle: MaterialStateProperty.all(
-//                       TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
-//                   )
-//               ),
-//               child:const NavigationDestination(icon: Icon(Icons.favorite_border,size: 40,), label: 'Favourite',selectedIcon: Icon(Icons.favorite),)),
-//         ],
-//       ),
-//       drawer: DashBoardDrawer(),
-//       appBar: AppBar(
-//
-//         title: Text('HMBG'),
-//       ),
-//       body: Stack(
-//         children: [
-//           dashboardContainer('asset/images/'),
-//           SingleChildScrollView(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               children: [
-//                 Padding(
-//                   padding: const EdgeInsets.all(8.0),
-//                   child: Container(
-//                     // width: 238,
-//                       height: 25,
-//
-//                       decoration: BoxDecoration(
-//                         color: Colors.white.withOpacity(0.3),
-//                         borderRadius: BorderRadius.circular(11),
-//                       ),
-//                       child: Center(child: Text('!! WELCOME $name !!',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),))),
-//                 ),
-//                 SizedBox(
-//                   height: 9,
-//                 ),
-//                 InkWell(
-//                     onTap: (){
-//                       Navigator.push(context, MaterialPageRoute(builder: (context)=>BGMain_Page()));
-//                     },
-//                     child: dashBoardImage("asset/images/bhagavadgita-6.jpg", "BHAGAVAD GITA",500.0,97.0)),
-//                 SizedBox(
-//                   height: 11,
-//                 ),
-//                 dashBoardImage("asset/images/", "RAMAYANA",200.0,178.0),
-//                 SizedBox(
-//                   height: 11,
-//                 ),
-//
-//                 dashBoardImage("asset/images", "MAHABHARAT",500.0,128.0),
-//                 SizedBox(
-//                   height: 11,
-//                 ),
-//                 dashBoardImage("asset/images", "VISHNUPURAN",500.0,124.0),
-//               ],
-//             ),
-//           ),
-//
-//         ],
-//       ),
-//     );
-//   }
-//
-// }
-// class dashboardContainer extends StatelessWidget{
-//   String image="";
-//   dashboardContainer(this.image);
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: Container(
-//           width: double.infinity,
-//           height: double.infinity,
-//           child: Image.asset(image,fit: BoxFit.fill,)),
-//     );
-//   }
-//
-// }
-// class dashBoardImage extends StatelessWidget{
-//   final String image;
-//   final String title ;
-//   var width1;
-//   var margin1;
-//   dashBoardImage(this.image, this.title,this.width1,this.margin1);
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: Container(
-//           width: 800,
-//           height: 200,
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(20),
-//           ),
-//           child: Stack(
-//             children: [
-//               Container(
-//                   decoration: BoxDecoration(
-//                       borderRadius: BorderRadius.circular(20),
-//                       boxShadow: [
-//                         BoxShadow(
-//                           blurRadius: 7,
-//                           spreadRadius: 7,
-//                           color: Colors.black38,
-//                         )
-//                       ]
-//                   ),
-//                   width:800,
-//                   height: 200,
-//                   child: ClipRRect(
-//                       borderRadius: BorderRadius.circular(11),
-//
-//                       child: Image.asset(image,fit: BoxFit.fill,))),
-//               Container(
-//                   decoration: BoxDecoration(
-//                     color: Colors.white.withOpacity(0.3),
-//                     borderRadius: BorderRadius.circular(11),
-//                   ),
-//                   margin: EdgeInsets.only(left: margin1,top: 150),
-//                   width: width1,
-//                   height: 55,
-//
-//                   child: Padding(
-//                     padding: const EdgeInsets.all(4.0),
-//                     child: Text(title,style: TextStyle(fontSize: 35,color: Colors.black87,fontWeight: FontWeight.bold),),
-//                   ))
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-//
-// }
-
 class DashBoard extends StatefulWidget {
   const DashBoard({Key? key}) : super(key: key);
 
@@ -238,26 +51,6 @@ class _DashBoardState extends State<DashBoard> {
     subscription.cancel();
     super.dispose();
   }
-
-  // showDialogBox() => showCupertinoDialog<String>(
-  //     context: context,
-  //     builder: (BuildContext context) => CupertinoAlertDialog(
-  //       title: const Text('No Connection'),
-  //       content: const Text('Please Check your Internet Connectivity'),
-  //       actions: <Widget>[
-  //         TextButton(onPressed: () async{
-  //           Navigator.pop(context, 'Cancel');
-  //           setState(() => isAlertSet = false);
-  //           isDeviceConnected = await InternetConnectionChecker().hasConnection;
-  //           if(!isDeviceConnected && isAlertSet == false){
-  //             showDialogBox();
-  //             setState(() => isAlertSet = true);
-  //           }
-  //         },
-  //         child: const Text('OK'))
-  //       ],
-  //     ),
-  // );
 
   List<String> images = [
     "asset/images/bhagavadgita-6.jpg",
@@ -309,7 +102,8 @@ class _DashBoardState extends State<DashBoard> {
     return Scaffold(
       drawer: DashBoardDrawer(),
       appBar: AppBar(
-        title: Text('HMBG'),
+        centerTitle: true,
+        title: Text('VedicGranth',style: TextStyle(fontFamily: 'Samarkan',fontWeight: FontWeight.bold),),
         actions: [
         IconButton(
               onPressed: () {
@@ -321,32 +115,6 @@ class _DashBoardState extends State<DashBoard> {
               icon: const Icon(Icons.favorite),
             ),
         ],
-        // actions: [
-        //   badges.Badge(
-        //     badgeContent: Consumer<CartProvider>(
-        //       builder: (context, value, child) {
-        //         return Text(
-        //           value.getCounter().toString(),
-        //           style: const TextStyle(
-        //               color: Colors.white, fontWeight: FontWeight.bold),
-        //         );
-        //       },
-        //     ),
-        //     position: BadgePosition.custom(start: 30, bottom: 30),
-        //     child: IconButton(
-        //       onPressed: () {
-        //         Navigator.push(
-        //             context,
-        //             MaterialPageRoute(
-        //                 builder: (context) => const CartScreen()));
-        //       },
-        //       icon: const Icon(Icons.favorite),
-        //     ),
-        //   ),
-        //   const SizedBox(
-        //     width: 20.0,
-        //   ),
-        // ],
       ),
       body: SafeArea(
           child: Stack(

@@ -7,6 +7,8 @@ import 'dashboard.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 
+import 'favourite_screen.dart';
+
 class ShlokPage1_1 extends StatefulWidget{
   final int cnum;
   final int verse_num;
@@ -375,7 +377,7 @@ class ShlokPage1_1State extends State<ShlokPage1_1> with TickerProviderStateMixi
             translation_title: Synonyms?.replaceAll("  ", "").replaceAll("\n", ""),
             translation: Translation?.replaceAll("  ", "").replaceAll("\n", ""),
             // purput_tile: purpot_title,
-            purpot: Purport?.replaceAll("  ", "").replaceAll("\n", ""),
+            purpot: Purport?.replaceAll("  ", ""),
           ));
     });
   }
@@ -414,11 +416,23 @@ class ShlokPage1_1State extends State<ShlokPage1_1> with TickerProviderStateMixi
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('HMBG'),
+          centerTitle: true,
+          title: Text('VedicGranth',style: TextStyle(fontFamily: 'Samarkan',fontWeight: FontWeight.bold),),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const FavouriteScreen()));
+              },
+              icon: const Icon(Icons.favorite),
+            ),
+          ],
         ),
         body: Stack(
           children: [
-            dashboardContainer('asset/images/newbackground4.png'),
+            dashboardContainer('asset/images/newbackground5.png'),
             text == ""?
             Center(
               child: Padding(
@@ -431,9 +445,14 @@ class ShlokPage1_1State extends State<ShlokPage1_1> with TickerProviderStateMixi
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 30),
-                    CircularProgressIndicator(
-                      value: controller.value,
-                      semanticsLabel: 'Circular progress indicator',
+                    SizedBox(
+                      child: CircularProgressIndicator(
+                        value: controller.value,
+                        color: Colors.grey,
+                        semanticsLabel: 'Circular progress indicator',
+                      ),
+                      height: 70.0,
+                      width: 70.0,
                     ),
                   ],
                 ),
@@ -500,7 +519,7 @@ class ShlokPage1_1State extends State<ShlokPage1_1> with TickerProviderStateMixi
                   ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text(article.translation_title!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20,fontFamily: 'Lora')),
+                    child: Text(article.translation_title!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: 'Lora')),
                   ),
                   SizedBox(
                     height: 10,
@@ -511,18 +530,15 @@ class ShlokPage1_1State extends State<ShlokPage1_1> with TickerProviderStateMixi
                   ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text(article.translation!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20,fontFamily: 'Lora')),
+                    child: Text(article.translation!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: 'Lora')),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   Text("Purport",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
-                  SizedBox(
-                    height: 10,
-                  ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text(article.purpot!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20,fontFamily: 'Lora')),
+                    child: Text(article.purpot!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: 'Lora')),
                   ),
                 ],
               );

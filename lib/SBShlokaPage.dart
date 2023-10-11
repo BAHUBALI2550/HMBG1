@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'boxes/boxes.dart';
 import 'dashboard.dart';
+import 'favourite_screen.dart';
 import 'models/favourite_model.dart';
 
 class SBShlokaPage extends StatefulWidget {
@@ -2429,7 +2430,7 @@ class _SBShlokaPageState extends State<SBShlokaPage> with TickerProviderStateMix
             translation_title: Synonyms?.replaceAll("  ", "").replaceAll("\n", ""),
             translation: Translation?.replaceAll("  ", "").replaceAll("\n", ""),
             // purput_tile: purpot_title,
-            purpot: Purport?.replaceAll("  ", "").replaceAll("\n\n\n", ""),
+            purpot: Purport?.replaceAll("  ", ""),
           ));
     });
   }
@@ -2462,7 +2463,18 @@ class _SBShlokaPageState extends State<SBShlokaPage> with TickerProviderStateMix
       appBar: AppBar(
         centerTitle: true,
         // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Srimad Bhagavatam"),
+        title: Text("Srimad Bhagavatam",style: TextStyle(fontFamily: 'Samarkan'),),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const FavouriteScreen()));
+            },
+            icon: const Icon(Icons.favorite),
+          ),
+        ],
       ),
       body:Stack(
         children: [
@@ -2479,9 +2491,14 @@ class _SBShlokaPageState extends State<SBShlokaPage> with TickerProviderStateMix
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 30),
-                  CircularProgressIndicator(
-                    value: controller.value,
-                    semanticsLabel: 'Circular progress indicator',
+                  SizedBox(
+                    child: CircularProgressIndicator(
+                      value: controller.value,
+                      color: Colors.grey,
+                      semanticsLabel: 'Circular progress indicator',
+                    ),
+                    height: 70.0,
+                    width: 70.0,
                   ),
                 ],
               ),
@@ -2526,7 +2543,7 @@ class _SBShlokaPageState extends State<SBShlokaPage> with TickerProviderStateMix
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Text(article.translation_title!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500,fontFamily: 'Lora'),textAlign: TextAlign.justify,),
+                child: Text(article.translation_title!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold,fontFamily: 'Lora'),textAlign: TextAlign.justify,),
               ),
               SizedBox(
                 height: 10,
@@ -2537,15 +2554,15 @@ class _SBShlokaPageState extends State<SBShlokaPage> with TickerProviderStateMix
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Text(article.translation!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500,fontFamily: 'Lora'),textAlign: TextAlign.justify,),
+                child: Text(article.translation!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold,fontFamily: 'Lora'),textAlign: TextAlign.justify,),
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               Text("Purport",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),textAlign: TextAlign.center,),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Text(article.purpot!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500,fontFamily: 'Lora'),textAlign: TextAlign.justify,),
+                child: Text(article.purpot!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold,fontFamily: 'Lora'),textAlign: TextAlign.justify,),
               ),
             ],
           );
