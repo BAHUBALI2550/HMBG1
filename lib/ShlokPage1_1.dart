@@ -403,7 +403,6 @@ class ShlokPage1_1State extends State<ShlokPage1_1> with TickerProviderStateMixi
   @override
   void dispose() {
     // TODO: implement dispose
-    audioPlayer.dispose();
     controller.dispose();
     super.dispose();
   }
@@ -417,7 +416,7 @@ class ShlokPage1_1State extends State<ShlokPage1_1> with TickerProviderStateMixi
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('VedicGranth',style: TextStyle(fontFamily: 'Samarkan',fontWeight: FontWeight.bold),),
+          title: Text('Bhagavad Gita',style: TextStyle(fontFamily: 'Samarkan',fontWeight: FontWeight.bold),),
           actions: [
             IconButton(
               onPressed: () {

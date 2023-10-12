@@ -60,6 +60,13 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
             },
           ),
           ListTile(
+            leading: Icon(Icons.report),
+            title: Text('Review/Bug Report'),
+            onTap: () {
+              _launchURL('forms.gle','/MvuyD7qSUryabvxp6');
+            },
+          ),
+          ListTile(
             leading: Icon(Icons.info_outline),
             title: Text('About Us'),
             onTap: () {

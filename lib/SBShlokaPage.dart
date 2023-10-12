@@ -2400,7 +2400,6 @@ class _SBShlokaPageState extends State<SBShlokaPage> with TickerProviderStateMix
     String? Translation="";
     String? Purport="";
     final url=Uri.parse(getUrlString(i, j, k)!);
-    print(url);
     final response= await http.get(url);
     dom.Document html=dom.Document.html(response.body);
     final ttle=html

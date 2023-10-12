@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hmbg/dashboard.dart';
-
 import 'ShlokPage1_1.dart';
 
 
@@ -24,7 +23,7 @@ class _Verse_ShowState extends State<Verse_Show> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Bhagavad Gita',style: TextStyle(fontFamily: 'Samarkan',fontWeight: FontWeight.bold),),
+        title: Text('Vedic Granth',style: TextStyle(fontFamily: 'Samarkan',fontWeight: FontWeight.bold),),
       ),
       body: Stack(
         children: [

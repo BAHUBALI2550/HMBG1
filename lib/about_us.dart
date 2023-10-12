@@ -57,7 +57,7 @@ class About_Us extends StatelessWidget {
                         child: const Column(
                           children: [
                             CircleAvatar(
-                              backgroundImage: AssetImage('asset/images/IMG20220630134744.jpg'),
+                              backgroundImage: AssetImage('asset/images/Himanshu.jpg'),
                               radius: 40,
                             ),
                             SizedBox(
