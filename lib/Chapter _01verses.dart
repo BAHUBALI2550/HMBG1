@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hmbg/dashboard.dart';
-
 import 'ShlokPage1_1.dart';
 
 
@@ -23,7 +22,8 @@ class _Verse_ShowState extends State<Verse_Show> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HMBG'),
+        centerTitle: true,
+        title: Text('Vedic Granth',style: TextStyle(fontFamily: 'Samarkan',fontWeight: FontWeight.bold),),
       ),
       body: Stack(
         children: [
@@ -38,15 +38,6 @@ class _Verse_ShowState extends State<Verse_Show> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text('Chapter-$cnum',style: TextStyle(color: Colors.white,fontSize: 45),)),
-              // GridView.count(crossAxisCount: 5,
-              // children: [
-              //   Container(
-              //     width: 20,
-              //     height: 20,
-              //     color: Colors.black.withOpacity(0.5),
-              //   ),
-              // ],
-              // )
           SizedBox(
             height: 20,
           ),

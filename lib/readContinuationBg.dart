@@ -14,41 +14,6 @@ class ReadContinueState extends State<ReadContinueBg>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // bottomNavigationBar: NavigationBar(
-      //   height: 60,
-      //   backgroundColor: Colors.orangeAccent,
-      //   elevation: 1.0,
-      //   labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-      //   selectedIndex: index,
-      //   onDestinationSelected: (index) => setState(() => this.index = index),
-      //   destinations: [
-      //     NavigationBarTheme(
-      //         data: NavigationBarThemeData(
-      //             indicatorColor: Colors.red.shade100,
-      //             labelTextStyle: MaterialStateProperty.all(
-      //                 TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
-      //             )
-      //         ),
-      //         child:const NavigationDestination(icon: Icon(Icons.account_circle_outlined,size: 40,), label: 'Profile',selectedIcon: Icon(Icons.account_circle),)),
-      //     NavigationBarTheme(
-      //         data: NavigationBarThemeData(
-      //             indicatorColor: Colors.red.shade100,
-      //             labelTextStyle: MaterialStateProperty.all(
-      //                 TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
-      //             )
-      //         ),
-      //         child:const NavigationDestination(icon: Icon(Icons.home_outlined,size: 40,), label: 'Home',selectedIcon: Icon(Icons.home),)),
-      //     NavigationBarTheme(
-      //         data: NavigationBarThemeData(
-      //             indicatorColor: Colors.red.shade100,
-      //             labelTextStyle: MaterialStateProperty.all(
-      //                 TextStyle(fontSize: 14,fontWeight: FontWeight.bold)
-      //             )
-      //         ),
-      //         child:const NavigationDestination(icon: Icon(Icons.favorite_border,size: 40,), label: 'Favourite',selectedIcon: Icon(Icons.favorite),)),
-      //   ],
-      //
-      // ),
       body: Stack(
           children: [
             dashboardContainer('asset/images/newdashboard.jpg'),
@@ -66,7 +31,7 @@ class ReadContinueState extends State<ReadContinueBg>{
                             SizedBox(
                               height: 5,
                             ),
-                            ChapterContainer(1,47),
+                            ChapterContainer(1,46),
                             const SizedBox(
                               height: 11,
                             ),

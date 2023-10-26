@@ -20,7 +20,8 @@ class _RamayanaChapterShowState extends State<RamayanaChapterShow> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HMBG'),
+        centerTitle: true,
+        title: Text('Ramayana',style: TextStyle(fontFamily: 'Samarkan',fontWeight: FontWeight.bold),),
       ),
       body: Stack(
         children: [

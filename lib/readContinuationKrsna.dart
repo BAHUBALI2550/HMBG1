@@ -74,7 +74,7 @@ class _KrsnaPageState extends State<KrsnaPage> {
               margin: EdgeInsets.only(top: 255,left: 300),
               child: InkWell(
                 onTap: (){
-
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => RamayanaShloka("https://vedabase.io/en/library/kb/1/")));
                 },
                 child: CircleAvatar(
                   backgroundImage: AssetImage('asset/images/playbutton1.jpg'),

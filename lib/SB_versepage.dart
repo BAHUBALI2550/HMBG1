@@ -22,7 +22,8 @@ class _SBVerse_ShowState extends State<SBVerse_Show> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HMBG'),
+        centerTitle: true,
+        title: Text('VedicGranth',style: TextStyle(fontFamily: 'Samarkan',fontWeight: FontWeight.bold),),
       ),
       body: Stack(
         children: [
@@ -37,15 +38,6 @@ class _SBVerse_ShowState extends State<SBVerse_Show> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text('Chapter-$cnum',style: TextStyle(color: Colors.white,fontSize: 45),)),
-          // GridView.count(crossAxisCount: 5,
-          // children: [
-          //   Container(
-          //     width: 20,
-          //     height: 20,
-          //     color: Colors.black.withOpacity(0.5),
-          //   ),
-          // ],
-          // )
           SizedBox(
             height: 20,
           ),

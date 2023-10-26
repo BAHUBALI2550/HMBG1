@@ -63,7 +63,7 @@ class _SBChapterPageState extends State<SBChapterPage> {
               margin: EdgeInsets.only(top: 260,left: 300),
               child: InkWell(
                 onTap: (){
-
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SBVerse_Show(cantonum, 1, versecount[0])));
                 },
                 child: CircleAvatar(
                   backgroundImage: AssetImage('asset/images/playbutton1.jpg'),

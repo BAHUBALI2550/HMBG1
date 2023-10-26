@@ -103,7 +103,8 @@ class _ReadBhagvatamState extends State<ReadBhagvatam> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HMBG'),
+        centerTitle: true,
+        title: Text('VedicGranth',style: TextStyle(fontFamily: 'Samarkan',fontWeight: FontWeight.bold),),
       ),
       body: Stack(
         children: [

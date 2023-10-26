@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hmbg/dashboard.dart';
 import 'package:hmbg/models/favourite_model.dart';
-import 'package:hmbg/readContinuationBhagvatam.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -146,7 +144,7 @@ class SplashPageState extends State<SplashPage> with SingleTickerProviderStateMi
                           width: double.infinity,
                           height: double.infinity,
                           child: Image.asset('asset/images/p1.1.3.png',fit: BoxFit.fill,))),
-                  Center(child: Image.asset('asset/images/inspire_logo.png',color: Colors.black,width: animation!.value,height: animation!.value,fit: BoxFit.fill,))
+                  Center(child: Image.asset('asset/images/Applogo1.png',width: animation!.value,height: animation!.value,fit: BoxFit.fill,))
                 ]
                 );
               }
@@ -188,17 +186,6 @@ class SplashPageState extends State<SplashPage> with SingleTickerProviderStateMi
             }
           ),
         ),
-
-    //     Stack(children: [
-    //       Center(
-    //         child:
-    //         Container(
-    //           width: double.infinity,
-    //             height: double.infinity,
-    //             child: Image.asset('asset/images/p1.1.3.png',fit: BoxFit.fill,))),
-    //       Center(child: Image.asset('asset/images/inspire_logo.png',color: Colors.black,width: animation.value,height: animation.value,fit: BoxFit.fill,))
-    //     ]
-    // )
     );
   }
 
