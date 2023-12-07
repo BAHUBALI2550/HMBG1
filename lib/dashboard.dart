@@ -2,10 +2,8 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hmbg/DashBoarddrawer.dart';
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hmbg/blankPage.dart';
 import 'package:hmbg/favourite_screen.dart';
@@ -13,6 +11,7 @@ import 'package:hmbg/readContinuationBg.dart';
 import 'package:hmbg/readContinuationBhagvatam.dart';
 import 'package:hmbg/readContinuationKrsna.dart';
 import 'package:hmbg/readContinueRamayan.dart';
+import 'package:hmbg/search_screen.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({Key? key}) : super(key: key);
@@ -105,6 +104,12 @@ class _DashBoardState extends State<DashBoard> {
         centerTitle: true,
         title: Text('VedicGranth',style: TextStyle(fontFamily: 'Samarkan',fontWeight: FontWeight.bold),),
         actions: [
+          IconButton(onPressed: (){
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SearchScreen()));
+          }, icon: const Icon(Icons.search)),
         IconButton(
               onPressed: () {
                 Navigator.push(
@@ -218,19 +223,6 @@ class _DashBoardState extends State<DashBoard> {
             ],
           ),
 
-      ),
-    );
-  }
-  Widget buildIndicator(bool isSelected){
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 1),
-      child: Container(
-        height: isSelected ? 10 : 8,
-        width: isSelected ? 10 : 8,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: isSelected? Colors.white : Colors.grey,
-        ),
       ),
     );
   }

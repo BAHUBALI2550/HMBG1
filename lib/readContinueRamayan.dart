@@ -10,9 +10,9 @@ class ReadContinueRamayan extends StatefulWidget{
 }
 class ReadContinueState extends State<ReadContinueRamayan>{
 
-  List<dynamic> Part1Chapter = ['King Daśaratha’s Longing','The Birth of Rāma','With the Sage Viśvāmitra','The Trial of Strength','Crooked Advice for Queen Kaikeyi','The King’s Heartbreak','Rāma Agrees to Depart','Grief and Fury','Sītā’s Plea','Sad Farewells'];
-  List<dynamic> Part2Chapter = ['Into the Forest','Devastation in Ayodhya','Bharata’s Return','We Shall Bring Rāma Back','Rāma Remains Firm','The Forest Sages','The Rākṣasī Shurpanakha','Rāvaṇa’s Lust is Incited','The Kidnapping of Sītā','Rāma’s Terrible Discovery','Rāma Meets the Monkeys','The Search Begins','Hanumān Leaps to Lanka','Sītā is Found'];
-  List<dynamic> Part3Chapter = ['The Army Sets Off','Panic in Lanka','Rāma Confronts the Ocean','Rāvaṇa’s Evil Trickery','The War Begins','Garuḍa to the Rescue','Rāvaṇa Enters the Fray','The Colossal Demon','Carnage Among the Rākṣasas','Rāma and Lakṣman Laid Low','Lakṣman Battles Indrajit','Rāvaṇa Exhibits His Prowess','The Final Battle','Sītā’s Ordeal','Back to Ayodhya'];
+  List<dynamic> Part1Chapter = ['1: King Daśaratha’s Longing','2: The Birth of Rāma','3: With the Sage Viśvāmitra','4: The Trial of Strength','5: Crooked Advice for Queen Kaikeyi','6: The King’s Heartbreak','7: Rāma Agrees to Depart','8: Grief and Fury','9: Sītā’s Plea','10: Sad Farewells'];
+  List<dynamic> Part2Chapter = ['1: Into the Forest','2: Devastation in Ayodhya','3: Bharata’s Return','4: We Shall Bring Rāma Back','5: Rāma Remains Firm','6: The Forest Sages','7: The Rākṣasī Shurpanakha','8: Rāvaṇa’s Lust is Incited','9: The Kidnapping of Sītā','10: Rāma’s Terrible Discovery','11: Rāma Meets the Monkeys','12: The Search Begins','13: Hanumān Leaps to Lanka','14: Sītā is Found'];
+  List<dynamic> Part3Chapter = ['1: The Army Sets Off','2: Panic in Lanka','3: Rāma Confronts the Ocean','4: Rāvaṇa’s Evil Trickery','5: The War Begins','6: Garuḍa to the Rescue','7: Rāvaṇa Enters the Fray','8: The Colossal Demon','9: Carnage Among the Rākṣasas','10: Rāma and Lakṣman Laid Low','11: Lakṣman Battles Indrajit','12: Rāvaṇa Exhibits His Prowess','13: The Final Battle','14: Sītā’s Ordeal','15: Back to Ayodhya'];
   int index = 0;
   @override
   Widget build(BuildContext context) {

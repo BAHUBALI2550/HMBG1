@@ -12,7 +12,7 @@ class SBChapterPage extends StatefulWidget {
   SBChapterPage(this.CantoChapterName,this.cantonum,this.versecount);
 
   @override
-  State<SBChapterPage> createState() => _SBChapterPageState(CantoChapterName as List<String>,cantonum,versecount as List<int>);
+  State<SBChapterPage> createState() => _SBChapterPageState(CantoChapterName,cantonum,versecount);
 }
 
 class _SBChapterPageState extends State<SBChapterPage> {

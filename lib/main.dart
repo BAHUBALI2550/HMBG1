@@ -2,8 +2,11 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:hmbg/ShlokPage1_1.dart';
 import 'package:hmbg/dashboard.dart';
 import 'package:hmbg/models/favourite_model.dart';
+import 'package:hmbg/readContinuationBg.dart';
+import 'package:hmbg/search_screen.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() async{
@@ -31,7 +34,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.orange,
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
-                primary: Colors.white,
+                backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                   side: BorderSide(
