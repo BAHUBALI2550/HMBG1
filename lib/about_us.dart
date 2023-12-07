@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'dashboard.dart';
 
 class About_Us extends StatelessWidget {
   const About_Us({super.key});
@@ -65,7 +64,6 @@ class About_Us extends StatelessWidget {
                             ),
                             Text('Himanshu Singh'),
                             Text('himanshu.singh212025@gmail.com',style: TextStyle(fontSize: 10),),
-                            Text("IIIT BHOPAL"),
                           ],
                         ),
                       ),
@@ -84,7 +82,6 @@ class About_Us extends StatelessWidget {
                             ),
                             Text('Mayur Maru'),
                             Text('mayur17maru@gmail.com',style: TextStyle(fontSize: 10),),
-                            Text("IIIT BHOPAL"),
                           ],
                         ),
                       ),

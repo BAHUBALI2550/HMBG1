@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:hmbg/boxes/boxes.dart';
@@ -16,8 +15,8 @@ class ShlokPage1_1 extends StatefulWidget{
   State<ShlokPage1_1> createState() => ShlokPage1_1State(cnum,verse_num);
 }
 class ShlokPage1_1State extends State<ShlokPage1_1> with TickerProviderStateMixin {
-  final int cnum;
-  final int verse_num;
+  late int cnum;
+  late int verse_num;
   ShlokPage1_1State(this.cnum,this.verse_num);
 
   late AnimationController controller;
@@ -372,8 +371,8 @@ class ShlokPage1_1State extends State<ShlokPage1_1> with TickerProviderStateMixi
       articles=List.generate(ttle.length,
               (index) => Article(
             titles: title?.replaceAll("  ", "").replaceAll("\n", ""),
-            devnagri: Devanagri?.replaceAll("  ", "").replaceAll("\n", "").replaceAll(" ।", "।\n"),
-            verse_text: Text?.replaceAll("  ", "").replaceAll("\n", ""),
+            devnagri: Devanagri?.replaceAll("  ", "").replaceAll("\n", "").replaceAll(" ।", "।\n").replaceAll("उवाच", "उवाच\n"),
+            verse_text: Text?.replaceAll("  ", "").replaceAll("\n", "").replaceAll("uvāca", "uvāca\n"),
             translation_title: Synonyms?.replaceAll("  ", "").replaceAll("\n", ""),
             translation: Translation?.replaceAll("  ", "").replaceAll("\n", ""),
             // purput_tile: purpot_title,
@@ -485,8 +484,11 @@ class ShlokPage1_1State extends State<ShlokPage1_1> with TickerProviderStateMixi
                     height: 10,
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.only(left: 30,right: 30),
                     child: Text(article.verse_text!,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20,fontFamily: 'Lora')),
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                   Container(
                     alignment: Alignment.center,
@@ -539,9 +541,236 @@ class ShlokPage1_1State extends State<ShlokPage1_1> with TickerProviderStateMixi
                     padding: const EdgeInsets.all(12.0),
                     child: Text(article.purpot!,textAlign: TextAlign.justify,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: 'Lora')),
                   ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15.0,bottom: 15.0),
+                        child: Container(
+                          alignment: Alignment.bottomLeft,
+                          height:40,
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                )
+                            ),
+                            onPressed: () {
+                              if(cnum == 1 && verse_num == 1)
+                              {
+                                verse_num = 2;
+                              }
+                              else if(cnum == 2 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 46;
+                              }
+                              else if(cnum == 3 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 72;
+                              }
+                              else if(cnum == 4 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 43;
+                              }
+                              else if(cnum == 5 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 42;
+                              }
+                              else if(cnum == 6 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 29;
+                              }
+                              else if(cnum == 7 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 47;
+                              }
+                              else if(cnum == 8 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 30;
+                              }
+                              else if(cnum == 9 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 28;
+                              }
+                              else if(cnum == 10 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 34;
+                              }
+                              else if(cnum == 11 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 42;
+                              }
+                              else if(cnum == 12 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 55;
+                              }
+                              else if(cnum == 13 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 20;
+                              }
+                              else if(cnum == 14 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 35;
+                              }
+                              else if(cnum == 15 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 27;
+                              }
+                              else if(cnum == 16 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 20;
+                              }
+                              else if(cnum == 17 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 24;
+                              }
+                              else if(cnum == 18 && verse_num == 1)
+                              {
+                                cnum = cnum-1;
+                                verse_num = 28;
+                              }
+                              else {verse_num = verse_num-1;}
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ShlokPage1_1(cnum,verse_num)));
+                            },
+                            label: Text("Previous"),
+                            icon: const Icon(Icons.arrow_back),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15.0,bottom: 15.0),
+                        child: Container(
+                            alignment: Alignment.bottomRight,
+                            height:40,
+                            child: Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    )
+                                ),
+                                onPressed: () {
+                                  if(cnum == 1 && verse_num == 46)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 2 && verse_num == 72)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 3 && verse_num == 43)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 4 && verse_num == 42)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 5 && verse_num == 29)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 6 && verse_num == 47)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 7 && verse_num == 30)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 8 && verse_num == 28)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 9 && verse_num == 34)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 10 && verse_num == 42)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 11 && verse_num == 55)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 12 && verse_num == 20)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 13 && verse_num == 35)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 14 && verse_num == 27)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 15 && verse_num == 20)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 16 && verse_num == 24)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 17 && verse_num == 28)
+                                  {
+                                    cnum = cnum+1;
+                                    verse_num = 1;
+                                  }
+                                  else if(cnum == 18 && verse_num == 78)
+                                  {
+                                    verse_num = verse_num-1;
+                                  }
+                                  else {verse_num = verse_num+1;}
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ShlokPage1_1(cnum,verse_num)));
+                                },
+                                label: Text("Next"),
+                                icon: const Icon(Icons.arrow_back),
+                              ),
+                            )
+                        ),
+                      )
+                    ],
+                  ),
+
                 ],
               );
-
             }),
             Padding(
               padding: const EdgeInsets.all(8.0),

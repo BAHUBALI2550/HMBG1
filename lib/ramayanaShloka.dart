@@ -108,9 +108,11 @@ String text = "";
                 final article=articles[index];
                   return ListBody(
                        children: [
-                         Padding(padding: const EdgeInsets.all(8.0),
-                            child: Text(article.titles!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold,fontFamily: 'Lora'),textAlign: TextAlign.justify
-                              ,),
+                         Padding(padding: const EdgeInsets.only(right: 25,left: 25),
+                            child: Container(
+                              child: Text(article.titles!,style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold,fontFamily: 'Lora'),textAlign: TextAlign.center
+                                ,),
+                            ),
                           ),
                         ],
                     );

@@ -41,7 +41,8 @@ class _RamayanaChapterShowState extends State<RamayanaChapterShow> {
           ),
           Container(
             margin: EdgeInsets.only(top: 90),
-            child: ListView.builder(
+            child:
+            ListView.builder(
               // mainAxisSpacing: 11,crossAxisSpacing: 11,
               itemBuilder: (BuildContext context, index ) {
                 return Padding(
@@ -61,7 +62,7 @@ class _RamayanaChapterShowState extends State<RamayanaChapterShow> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Center(child: Text(ChapterList[index],
-                            style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white,),textAlign: TextAlign.left,)),
+                            style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white,),textAlign: TextAlign.center,)),
                         )),
                   ),
                 );
